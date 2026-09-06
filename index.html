@@ -1,0 +1,574 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>社團招新與新生茶會海報生成器 | Club Poster Generator</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 頂部導航列 -->
+  <header class="app-header">
+    <div class="brand-title">
+      <span>🎨 社團宣傳海報生成器</span>
+      <span class="brand-badge">A4 / A3 / B2 & 社群比例・支援 300 DPI 印刷級下載</span>
+    </div>
+    <div class="header-actions">
+      <button class="btn btn-secondary btn-sm" id="btn-reset" title="恢復預設範例內容">
+        🔄 重設範本
+      </button>
+      <button class="btn btn-export" id="btn-export">
+        📥 一鍵下載高畫質海報 (PNG)
+      </button>
+    </div>
+  </header>
+
+  <!-- 主雙欄區域 -->
+  <div class="main-container">
+
+    <!-- 左側編輯控制台 -->
+    <aside class="editor-sidebar">
+      <div class="sidebar-content">
+
+        <!-- 海報規格與風格設定 -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-icon">📐</span>
+              <span>海報規格與主題風格</span>
+            </div>
+            <span class="section-toggle-icon">▼</span>
+          </div>
+          <div class="section-body">
+            <div class="form-group">
+              <label for="select-size">海報尺寸規格 (支援列印與社群)</label>
+              <select id="select-size">
+                <option value="size-a4" selected>📄 A4 直式標準海報 (210 x 297 mm, 學校公佈欄)</option>
+                <option value="size-a3">📋 A3 大型海報 (297 x 420 mm, 大型看版推薦)</option>
+                <option value="size-b2">🖼️ B2 特大展示海報 (500 x 707 mm, 展架/大廳必備)</option>
+                <option value="size-story">📱 IG 限時動態 / 手機全螢幕 (9:16)</option>
+                <option value="size-post">📸 IG / FB 直式貼文 (4:5)</option>
+                <option value="size-square">🔲 社群方形貼文 (1:1)</option>
+              </select>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="select-theme">主題配色風格</label>
+                <select id="select-theme">
+                  <option value="theme-sports" selected>🔥 熱血活力紅黑風 (運動/挑戰)</option>
+                  <option value="theme-dark">⚡ 潮酷黑金潮流風 (熱舞/音樂/電競)</option>
+                  <option value="theme-green">🌿 日系清新青綠風 (文藝/休閒/志工)</option>
+                  <option value="theme-blue">🌊 晨曦陽光藍白風 (學術/校園/陽光)</option>
+                  <option value="theme-purple">💜 夢幻炫彩紫粉風 (設計/藝術/流行)</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="select-scale">下載解析度品質</label>
+                <select id="select-scale">
+                  <option value="3" selected>🖨️ 300 DPI 超高清 (極致清晰・印刷首選)</option>
+                  <option value="2">📱 2x 高畫質 (社群網路分享)</option>
+                  <option value="1">⚡ 1x 快速預覽</option>
+                </select>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 1. 社團基本資訊與帳號 -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-icon">🏛️</span>
+              <span>1. 社團資訊與社群帳號</span>
+            </div>
+            <span class="section-toggle-icon">▼</span>
+          </div>
+          <div class="section-body">
+            <div class="form-group">
+              <label for="input-clubName">社團名稱</label>
+              <input type="text" id="input-clubName" placeholder="例如：極限體適能與攀岩社">
+            </div>
+
+            <div class="form-group">
+              <label for="input-clubSubtitle">副標題 / 英文口號</label>
+              <input type="text" id="input-clubSubtitle" placeholder="例如：LIMITLESS FITNESS CLUB">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="input-logoText">預設社徽 Emoji</label>
+                <input type="text" id="input-logoText" placeholder="例如：🧗‍♂️ 或 🥊">
+              </div>
+              <div class="form-group">
+                <label>或上傳自訂社徽圖片</label>
+                <label class="file-upload-box">
+                  <span class="upload-icon">📁</span>
+                  <span class="upload-text">點擊上傳社徽圖片</span>
+                  <input type="file" id="upload-logo" accept="image/*">
+                </label>
+              </div>
+            </div>
+            <div id="logo-preview-wrap" class="uploaded-preview-row" style="display: none;">
+              <div class="thumb-preview-wrap">
+                <img class="thumb-img" src="" alt="社徽縮圖">
+                <span class="form-hint">已上傳自訂社徽</span>
+              </div>
+              <button type="button" class="btn-danger-sm" onclick="removeLogo()">移除</button>
+            </div>
+
+            <div class="form-group">
+              <label for="input-instagram">Instagram 帳號</label>
+              <input type="text" id="input-instagram" placeholder="例如：@limitless_fit_club">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="input-facebook">Facebook 粉專</label>
+                <input type="text" id="input-facebook" placeholder="例如：極限體適能社 NTU">
+              </div>
+              <div class="form-group">
+                <label for="input-lineId">Line 官方帳號 / 社群</label>
+                <input type="text" id="input-lineId" placeholder="例如：@fit_club2026">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 新生茶會資訊 -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-icon">🍵</span>
+              <span>2. 新生茶會與招新資訊</span>
+            </div>
+            <span class="section-toggle-icon">▼</span>
+          </div>
+          <div class="section-body">
+            <div class="form-row">
+              <div class="form-group">
+                <label for="input-eventTitle">活動主標題</label>
+                <input type="text" id="input-eventTitle" placeholder="例如：2026 新生體驗茶會">
+              </div>
+              <div class="form-group">
+                <label for="input-eventTagline">頂部英文橫幅</label>
+                <input type="text" id="input-eventTagline" placeholder="例如：★ WELCOME PARTY ★">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="input-eventTheme">茶會主題 / 號召口號</label>
+              <input type="text" id="input-eventTheme" placeholder="例如：打破舒適圈！找到志同道合的熱血夥伴">
+            </div>
+
+            <div class="form-group">
+              <label for="input-eventDate">活動日期與時間</label>
+              <input type="text" id="input-eventDate" placeholder="例如：2026.09.24 (四) 18:30 入場">
+            </div>
+
+            <div class="form-group">
+              <label for="input-eventLocation">活動地點</label>
+              <input type="text" id="input-eventLocation" placeholder="例如：活動中心 3 樓 多功能韻律教室">
+            </div>
+
+            <div class="form-group">
+              <label for="input-eventTarget">參加對象</label>
+              <input type="text" id="input-eventTarget" placeholder="例如：全校新生、轉學生及熱愛運動的夥伴">
+            </div>
+
+            <div class="form-group">
+              <label for="input-highlights">
+                <span>活動亮點 (用逗號隔開)</span>
+                <span class="form-hint">會以精緻膠囊標籤呈現</span>
+              </label>
+              <input type="text" id="input-highlights" placeholder="熱血社團介紹, 專業器材初體驗, 學長姐經驗分享, 迎新交流破冰">
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 吸睛標語（小點心/迎新福利） -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-icon">🍕</span>
+              <span>3. 吸睛好康標語 (小點心/福利)</span>
+            </div>
+            <span class="section-toggle-icon">▼</span>
+          </div>
+          <div class="section-body">
+            <div class="form-row">
+              <div class="form-group" style="max-width: 110px;">
+                <label for="input-sloganIcon">標語圖示</label>
+                <input type="text" id="input-sloganIcon" placeholder="🍕">
+              </div>
+              <div class="form-group" style="flex: 1;">
+                <label for="input-sloganMain">主標語 (超吸睛亮點)</label>
+                <input type="text" id="input-sloganMain" placeholder="現場備有精緻小點心、手搖飲免費享用！">
+              </div>
+            </div>
+            <div class="form-group">
+              <label for="input-sloganSub">副標語 (加碼福利/早鳥好禮)</label>
+              <input type="text" id="input-sloganSub" placeholder="★ 早鳥前 30 名報到，加碼送社團特製運動水壺 ★">
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. 握力器挑戰專區 -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-icon">💪</span>
+              <span>4. 握力器挑戰活動專區</span>
+            </div>
+            <span class="section-toggle-icon">▼</span>
+          </div>
+          <div class="section-body">
+            <label class="switch-label">
+              <input type="checkbox" id="input-enableGrip" checked>
+              <span>在海報上啟用「握力器挑戰」專屬企劃卡片</span>
+            </label>
+
+            <div class="form-group">
+              <label for="input-gripTitle">挑戰主題名稱</label>
+              <input type="text" id="input-gripTitle" placeholder="🔥 攤位限定：握力極限大挑戰！">
+            </div>
+
+            <div class="form-group">
+              <label for="input-gripDesc">規則與玩法說明</label>
+              <textarea id="input-gripDesc" rows="2" placeholder="現場握一下，挑戰全校最強神力！當場測驗即可累積積分抽大獎。"></textarea>
+            </div>
+
+            <div class="form-group">
+              <label>挑戰門檻與獎勵設定 (3 個級距)</label>
+              
+              <!-- 級距 1 -->
+              <div class="form-row" style="margin-bottom: 8px;">
+                <input type="text" id="input-gripTier-0" placeholder="級距條件 1 (如：男 55kg+ / 女 38kg+)">
+                <input type="text" id="input-gripPrize-0" placeholder="對應獎品 (如：社團限定排汗衫 + 能量棒)">
+              </div>
+              <!-- 級距 2 -->
+              <div class="form-row" style="margin-bottom: 8px;">
+                <input type="text" id="input-gripTier-1" placeholder="級距條件 2 (如：男 45kg+ / 女 30kg+)">
+                <input type="text" id="input-gripPrize-1" placeholder="對應獎品 (如：超商百元禮券 / 運動毛巾)">
+              </div>
+              <!-- 級距 3 -->
+              <div class="form-row">
+                <input type="text" id="input-gripTier-2" placeholder="級距條件 3 (如：🎁 挑戰有禮 (人人有獎))">
+                <input type="text" id="input-gripPrize-2" placeholder="對應獎品 (如：美味小點心 + 運動飲料)">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 5. 社團活動照片展示 -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-icon">📷</span>
+              <span>5. 社團活動照片展示</span>
+            </div>
+            <span class="section-toggle-icon">▼</span>
+          </div>
+          <div class="section-body">
+            <div class="form-group">
+              <label for="select-photoLayout">照片展示版型</label>
+              <select id="select-photoLayout">
+                <option value="layout-double" selected>雙圖左右並列 (經典推薦)</option>
+                <option value="layout-single">單張大焦點照 (極簡震撼)</option>
+                <option value="layout-triple">三圖焦點拼貼 (豐富精彩)</option>
+              </select>
+            </div>
+
+            <!-- 照片 1 -->
+            <div class="form-group">
+              <label>活動照片 1</label>
+              <div class="form-row">
+                <label class="file-upload-box">
+                  <span class="upload-icon">🖼️</span>
+                  <span class="upload-text">點擊上傳照片 1</span>
+                  <input type="file" id="upload-photo-0" accept="image/*">
+                </label>
+                <input type="text" id="input-caption-0" placeholder="照片 1 說明標籤 (如：日常社課重訓指導)">
+              </div>
+              <div id="photo-preview-wrap-0" class="uploaded-preview-row">
+                <div class="thumb-preview-wrap">
+                  <img class="thumb-img" src="" alt="照片 1">
+                  <span class="form-hint">照片 1 已設定</span>
+                </div>
+                <button type="button" class="btn-danger-sm" onclick="removePhoto(0)">清除</button>
+              </div>
+            </div>
+
+            <!-- 照片 2 -->
+            <div class="form-group">
+              <label>活動照片 2</label>
+              <div class="form-row">
+                <label class="file-upload-box">
+                  <span class="upload-icon">🖼️</span>
+                  <span class="upload-text">點擊上傳照片 2</span>
+                  <input type="file" id="upload-photo-1" accept="image/*">
+                </label>
+                <input type="text" id="input-caption-1" placeholder="照片 2 說明標籤 (如：戶外攀岩抱石挑戰)">
+              </div>
+              <div id="photo-preview-wrap-1" class="uploaded-preview-row">
+                <div class="thumb-preview-wrap">
+                  <img class="thumb-img" src="" alt="照片 2">
+                  <span class="form-hint">照片 2 已設定</span>
+                </div>
+                <button type="button" class="btn-danger-sm" onclick="removePhoto(1)">清除</button>
+              </div>
+            </div>
+
+            <!-- 照片 3 -->
+            <div class="form-group">
+              <label>活動照片 3 (三圖拼貼模式時顯示)</label>
+              <div class="form-row">
+                <label class="file-upload-box">
+                  <span class="upload-icon">🖼️</span>
+                  <span class="upload-text">點擊上傳照片 3</span>
+                  <input type="file" id="upload-photo-2" accept="image/*">
+                </label>
+                <input type="text" id="input-caption-2" placeholder="照片 3 說明標籤 (如：歡樂熱血團練)">
+              </div>
+              <div id="photo-preview-wrap-2" class="uploaded-preview-row">
+                <div class="thumb-preview-wrap">
+                  <img class="thumb-img" src="" alt="照片 3">
+                  <span class="form-hint">照片 3 已設定</span>
+                </div>
+                <button type="button" class="btn-danger-sm" onclick="removePhoto(2)">清除</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 6. QR Code 與行動呼籲 -->
+        <div class="section-card">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="section-icon">📲</span>
+              <span>6. 報名連結與 QR Code</span>
+            </div>
+            <span class="section-toggle-icon">▼</span>
+          </div>
+          <div class="section-body">
+            <div class="form-group">
+              <label for="input-qrText">
+                <span>報名表單 / IG / 官網網址</span>
+                <span class="form-hint">自動即時生成 QR Code</span>
+              </label>
+              <input type="text" id="input-qrText" placeholder="https://forms.gle/your-signup-link">
+            </div>
+
+            <div class="form-group">
+              <label>或直接上傳自訂 QR Code 圖片</label>
+              <label class="file-upload-box">
+                <span class="upload-icon">📷</span>
+                <span class="upload-text">上傳已製成的 QR Code 圖檔</span>
+                <input type="file" id="upload-qr" accept="image/*">
+              </label>
+              <div id="qr-preview-wrap" class="uploaded-preview-row" style="display: none;">
+                <div class="thumb-preview-wrap">
+                  <img class="thumb-img" src="" alt="自訂 QR Code">
+                  <span class="form-hint">使用自訂 QR 圖片中</span>
+                </div>
+                <button type="button" class="btn-danger-sm" onclick="removeCustomQr()">改用自動生成</button>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="input-qrLabel">QR Code 下方標籤說明</label>
+              <input type="text" id="input-qrLabel" placeholder="掃描立即報名茶會">
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label for="input-actionBadge">行動小標章</label>
+                <input type="text" id="input-actionBadge" placeholder="報名免費・名額有限">
+              </div>
+              <div class="form-group">
+                <label for="input-actionTitle">行動主標題</label>
+                <input type="text" id="input-actionTitle" placeholder="立即掃碼報名茶會！">
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="input-actionDesc">行動副說明</label>
+              <input type="text" id="input-actionDesc" placeholder="填寫表單預留座位與點心份數，現場憑確認信領取迎新好禮！">
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </aside>
+
+    <!-- 右側海報即時畫布與預覽工具列 -->
+    <main class="preview-area">
+
+      <!-- 畫布縮放工具列 -->
+      <div class="preview-toolbar">
+        <div class="toolbar-group">
+          <span>畫布縮放：</span>
+          <button class="btn btn-secondary btn-sm" id="btn-zoom-out">➖</button>
+          <span id="zoomLevelText" style="font-weight: 700; min-width: 45px; text-align: center;">85%</span>
+          <button class="btn btn-secondary btn-sm" id="btn-zoom-in">➕</button>
+          <button class="btn btn-secondary btn-sm" id="btn-zoom-fit">適應視窗</button>
+        </div>
+      </div>
+
+      <!-- 海報畫布縮放包裹層 -->
+      <div class="poster-canvas-wrapper" id="posterWrapper">
+        
+        <!-- 海報實體 DOM (將直接被 html2canvas 渲染) -->
+        <div class="poster theme-sports size-a4" id="posterCanvas">
+          <div class="poster-inner">
+
+            <!-- 1. 頂部社團資訊與社群 -->
+            <header class="poster-header">
+              <div class="club-brand-wrap">
+                <div class="poster-logo" id="p-logo">
+                  <span>🧗‍♂️</span>
+                </div>
+                <div class="club-name-group">
+                  <h1 class="poster-club-name" id="p-clubName">極限體適能與攀岩社</h1>
+                  <p class="poster-club-subtitle" id="p-clubSubtitle">LIMITLESS FITNESS & CLIMBING CLUB</p>
+                </div>
+              </div>
+
+              <!-- 社群帳號標籤 -->
+              <div class="poster-social-tags">
+                <span class="social-pill" id="p-instagram">📸 @limitless_fit_club</span>
+                <span class="social-pill" id="p-facebook">👥 極限體適能社 NTU</span>
+                <span class="social-pill" id="p-lineId">💬 @fit_club2026</span>
+              </div>
+            </header>
+
+            <!-- 2. 主標題區 (茶會活動名稱與口號) -->
+            <div class="poster-hero">
+              <div class="hero-tagline" id="p-eventTagline">★ WELCOME PARTY & RECRUITMENT ★</div>
+              <h2 class="poster-event-title" id="p-eventTitle">2026 新生體驗茶會</h2>
+              <p class="poster-event-theme" id="p-eventTheme">打破舒適圈！找到志同道合的熱血夥伴</p>
+            </div>
+
+            <!-- 3. 吸睛標語橫幅 (小點心/迎新好康) -->
+            <div class="poster-slogan-banner">
+              <span class="slogan-icon" id="p-sloganIcon">🍕</span>
+              <div class="slogan-text-box">
+                <span class="slogan-main-text" id="p-sloganMain">現場備有精緻小點心、手搖飲免費享用！</span>
+                <span class="slogan-sub-text" id="p-sloganSub">★ 早鳥前 30 名報到，加碼送社團特製運動水壺 ★</span>
+              </div>
+            </div>
+
+            <!-- 4. 核心資訊雙欄格 (左：茶會詳情與握力器挑戰 / 右：精采活動照片) -->
+            <div class="poster-mid-grid">
+              
+              <!-- 左側卡片群組 -->
+              <div style="display: flex; flex-direction: column; gap: 12px;">
+                
+                <!-- 新生茶會基本資訊卡片 -->
+                <div class="poster-card">
+                  <div class="card-title-bar">
+                    <span>🗓️</span>
+                    <span>茶會活動時程資訊</span>
+                  </div>
+
+                  <div class="info-item">
+                    <span class="info-bullet">⏰</span>
+                    <div>
+                      <span class="info-label">時間：</span>
+                      <span class="info-val" id="p-eventDate">2026.09.24 (四) 18:30 入場</span>
+                    </div>
+                  </div>
+
+                  <div class="info-item">
+                    <span class="info-bullet">📍</span>
+                    <div>
+                      <span class="info-label">地點：</span>
+                      <span class="info-val" id="p-eventLocation">活動中心 3 樓 多功能韻律教室</span>
+                    </div>
+                  </div>
+
+                  <div class="info-item">
+                    <span class="info-bullet">🎯</span>
+                    <div>
+                      <span class="info-label">對象：</span>
+                      <span class="info-val" id="p-eventTarget">全校新生、轉學生及熱愛運動的夥伴</span>
+                    </div>
+                  </div>
+
+                  <div style="margin-top: 4px;">
+                    <div style="font-size: 0.8rem; font-weight: 800; color: #475569; margin-bottom: 4px;">活動特色亮點：</div>
+                    <div class="highlight-chips" id="p-highlights">
+                      <!-- 動態注入亮點標籤 -->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- 握力器挑戰專屬模組卡片 -->
+                <div class="grip-challenge-card" id="p-gripChallenge">
+                  <div class="grip-badge-strip">POPULAR</div>
+                  <div>
+                    <div class="grip-header">
+                      <span id="p-gripTitle">🔥 攤位限定：握力極限大挑戰！</span>
+                    </div>
+                    <p class="grip-desc" id="p-gripDesc">
+                      現場握一下，挑戰全校最強神力！當場測驗即可累積積分抽大獎。
+                    </p>
+                  </div>
+
+                  <div class="grip-tier-list" id="p-gripTierList">
+                    <!-- 動態注入門檻與獎勵 -->
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- 右側活動照片展示 -->
+              <div class="poster-photo-section">
+                <div class="photo-gallery layout-double" id="p-photoGallery">
+                  <!-- 動態注入照片 -->
+                </div>
+              </div>
+
+            </div>
+
+            <!-- 5. 底部行動呼籲與 QR Code -->
+            <footer class="poster-footer">
+              <div class="footer-action-text">
+                <span class="action-badge" id="p-actionBadge">報名免費・名額有限</span>
+                <h3 class="action-title" id="p-actionTitle">立即掃碼報名茶會！</h3>
+                <p class="action-desc" id="p-actionDesc">填寫表單預留座位與點心份數，現場憑確認信領取迎新好禮！</p>
+              </div>
+
+              <div class="qr-code-box">
+                <div class="qr-canvas-container" id="p-qrCodeContainer"></div>
+                <span class="qr-label" id="p-qrLabel">掃描立即報名茶會</span>
+              </div>
+            </footer>
+
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <!-- 匯出中加載提示遮罩 -->
+  <div class="loading-overlay" id="loadingOverlay">
+    <div class="spinner"></div>
+    <h3 id="loadingText" style="font-size: 1.2rem; font-weight: 700;">正在為您渲染高解析度海報，請稍候...</h3>
+    <p style="font-size: 0.85rem; opacity: 0.8;">高解析度 (300 DPI) 渲染中，完成後將自動下載 PNG</p>
+  </div>
+
+  <!-- 依賴腳本：本地庫 + CDN 回退 -->
+  <script src="js/qrcode.min.js"></script>
+  <script src="js/html2canvas.min.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

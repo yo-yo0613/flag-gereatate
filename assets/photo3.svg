@@ -1,0 +1,21 @@
+﻿<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="g3" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#312e81"/>
+      <stop offset="50%" stop-color="#4338ca"/>
+      <stop offset="100%" stop-color="#1e1b4b"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#g3)"/>
+  <!-- 熱血擊掌或團練隊伍造型 -->
+  <g transform="translate(400, 260) scale(1.4)">
+    <circle cx="-50" cy="-40" r="20" fill="#fbcfe8"/>
+    <circle cx="0" cy="-50" r="22" fill="#fef08a"/>
+    <circle cx="50" cy="-40" r="20" fill="#bae6fd"/>
+    <path d="M-75,10 C-75,-15 -25,-15 -25,10 Z" fill="#ec4899"/>
+    <path d="M-30,10 C-30,-22 30,-22 30,10 Z" fill="#eab308"/>
+    <path d="M25,10 C25,-15 75,-15 75,10 Z" fill="#0284c7"/>
+  </g>
+  <text x="400" y="440" font-family="system-ui, sans-serif" font-size="34" font-weight="900" fill="#ffffff" text-anchor="middle" letter-spacing="2">熱血夥伴・同心同行</text>
+  <text x="400" y="485" font-family="system-ui, sans-serif" font-size="20" font-weight="600" fill="#c7d2fe" text-anchor="middle">每週定期團練與歡樂聚餐破冰</text>
+</svg>

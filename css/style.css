@@ -1,17 +1,16 @@
 ﻿/* ===================================================
-   社團海報生成器 - 專業排版與主題樣式表
+   社團海報生成器 - 北科健美健身社 (NTUT BBFC) 頂級精修版
    =================================================== */
 
 :root {
-  --primary: #4f46e5;
-  --primary-hover: #4338ca;
+  --primary: #b91c1c;
   --accent: #f59e0b;
-  --bg-dark: #0f172a;
-  --panel-bg: #1e293b;
-  --panel-border: #334155;
-  --text-main: #f8fafc;
-  --text-muted: #94a3b8;
-  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "PingFang TC", "Microsoft JhengHei", sans-serif;
+  --bg-dark: #090d16;
+  --panel-bg: #111827;
+  --panel-border: #1f2937;
+  --text-main: #f9fafb;
+  --text-muted: #9ca3af;
+  --font-sans: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
 }
 
 * {
@@ -32,13 +31,13 @@ body {
 
 /* 頂部導航列 */
 .app-header {
-  height: 60px;
-  background-color: #0b1120;
-  border-bottom: 1px solid var(--panel-border);
+  height: 56px;
+  background-color: #030712;
+  border-bottom: 1px solid #1f2937;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 24px;
+  padding: 0 20px;
   flex-shrink: 0;
   z-index: 50;
 }
@@ -46,20 +45,20 @@ body {
 .brand-title {
   display: flex;
   align-items: center;
-  gap: 12px;
-  font-size: 1.15rem;
-  font-weight: 700;
+  gap: 10px;
+  font-size: 1.1rem;
+  font-weight: 800;
   color: #fff;
   letter-spacing: 0.5px;
 }
 
 .brand-badge {
-  background: linear-gradient(135deg, #f59e0b, #ef4444);
+  background: linear-gradient(135deg, #ef4444, #f59e0b);
   color: #fff;
   font-size: 0.72rem;
-  padding: 2px 8px;
+  padding: 2px 10px;
   border-radius: 999px;
-  font-weight: 600;
+  font-weight: 700;
 }
 
 .header-actions {
@@ -77,7 +76,7 @@ body {
 
 /* 左側控制面板 */
 .editor-sidebar {
-  width: 460px;
+  width: 440px;
   background-color: var(--panel-bg);
   border-right: 1px solid var(--panel-border);
   overflow-y: auto;
@@ -87,38 +86,38 @@ body {
 }
 
 .sidebar-content {
-  padding: 20px;
+  padding: 16px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 /* 右側海報預覽區 */
 .preview-area {
   flex: 1;
-  background: radial-gradient(circle at center, #1e293b 0%, #090d16 100%);
+  background: radial-gradient(circle at center, #1f2937 0%, #030712 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow: auto;
   position: relative;
-  padding: 24px 20px 60px;
+  padding: 20px 20px 60px;
 }
 
 .preview-toolbar {
   position: sticky;
   top: 0;
   z-index: 40;
-  background: rgba(15, 23, 42, 0.9);
+  background: rgba(3, 7, 18, 0.85);
   backdrop-filter: blur(12px);
-  padding: 10px 20px;
+  padding: 8px 18px;
   border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   display: flex;
   align-items: center;
-  gap: 16px;
-  margin-bottom: 24px;
-  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5);
+  gap: 14px;
+  margin-bottom: 20px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.6);
 }
 
 .toolbar-group {
@@ -131,20 +130,20 @@ body {
 
 /* 折疊區塊 Accordion */
 .section-card {
-  background: #151f30;
-  border: 1px solid var(--panel-border);
-  border-radius: 12px;
+  background: #151d2e;
+  border: 1px solid #233044;
+  border-radius: 10px;
   overflow: hidden;
   transition: border-color 0.2s;
 }
 
 .section-card:hover {
-  border-color: #475569;
+  border-color: #3b4d6b;
 }
 
 .section-header {
-  padding: 14px 16px;
-  background: #172338;
+  padding: 12px 14px;
+  background: #1a2438;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -155,19 +154,16 @@ body {
 .section-title {
   display: flex;
   align-items: center;
-  gap: 10px;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: #e2e8f0;
-}
-
-.section-icon {
-  font-size: 1.1rem;
+  gap: 8px;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: #f3f4f6;
 }
 
 .section-toggle-icon {
   transition: transform 0.2s;
   color: var(--text-muted);
+  font-size: 0.8rem;
 }
 
 .section-card.collapsed .section-body {
@@ -179,28 +175,28 @@ body {
 }
 
 .section-body {
-  padding: 16px;
+  padding: 14px;
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  gap: 12px;
 }
 
 /* 表單元件 */
 .form-group {
   display: flex;
   flex-direction: column;
-  gap: 6px;
+  gap: 5px;
 }
 
 .form-row {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  gap: 10px;
 }
 
 .form-group label {
-  font-size: 0.82rem;
-  font-weight: 500;
+  font-size: 0.8rem;
+  font-weight: 600;
   color: #cbd5e1;
   display: flex;
   align-items: center;
@@ -209,20 +205,19 @@ body {
 
 .form-hint {
   font-size: 0.72rem;
-  color: #64748b;
+  color: #94a3b8;
 }
 
 input[type="text"],
-input[type="number"],
 textarea,
 select {
   width: 100%;
-  padding: 9px 12px;
-  background-color: #0b1322;
-  border: 1px solid #29384d;
-  border-radius: 8px;
-  color: #f1f5f9;
-  font-size: 0.88rem;
+  padding: 8px 10px;
+  background-color: #0b111e;
+  border: 1px solid #28374d;
+  border-radius: 6px;
+  color: #f8fafc;
+  font-size: 0.85rem;
   font-family: inherit;
   transition: all 0.2s;
 }
@@ -231,17 +226,16 @@ input:focus,
 textarea:focus,
 select:focus {
   outline: none;
-  border-color: var(--primary);
-  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.25);
-  background-color: #0f1b30;
+  border-color: #ef4444;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.25);
+  background-color: #0e1626;
 }
 
 textarea {
   resize: vertical;
-  min-height: 64px;
+  min-height: 56px;
 }
 
-/* 開關 Switch */
 .switch-label {
   display: flex;
   align-items: center;
@@ -252,30 +246,29 @@ textarea {
 }
 
 .switch-label input[type="checkbox"] {
-  accent-color: #4f46e5;
-  width: 17px;
-  height: 17px;
+  accent-color: #ef4444;
+  width: 16px;
+  height: 16px;
   cursor: pointer;
 }
 
-/* 檔案上傳按鈕美化 */
 .file-upload-box {
-  border: 2px dashed #334155;
-  border-radius: 8px;
-  padding: 14px;
+  border: 1px dashed #374151;
+  border-radius: 6px;
+  padding: 10px;
   text-align: center;
   cursor: pointer;
-  background-color: #0d1524;
+  background-color: #0b111e;
   transition: all 0.2s;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .file-upload-box:hover {
-  border-color: #6366f1;
-  background-color: #131e33;
+  border-color: #ef4444;
+  background-color: #131c2d;
 }
 
 .file-upload-box input[type="file"] {
@@ -283,11 +276,11 @@ textarea {
 }
 
 .upload-icon {
-  font-size: 1.5rem;
+  font-size: 1.3rem;
 }
 
 .upload-text {
-  font-size: 0.8rem;
+  font-size: 0.75rem;
   color: #94a3b8;
 }
 
@@ -295,26 +288,27 @@ textarea {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 10px;
-  margin-top: 8px;
-  background: #090e18;
-  padding: 8px 12px;
+  gap: 8px;
+  margin-top: 6px;
+  background: #060a12;
+  padding: 6px 10px;
   border-radius: 6px;
-  border: 1px solid #1e293b;
+  border: 1px solid #1f293d;
 }
 
 .thumb-preview-wrap {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
 }
 
 .thumb-img {
-  width: 44px;
-  height: 44px;
+  width: 38px;
+  height: 38px;
   object-fit: cover;
-  border-radius: 6px;
+  border-radius: 4px;
   border: 1px solid #334155;
+  background: #fff;
 }
 
 /* 按鈕風格 */
@@ -323,73 +317,60 @@ textarea {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  font-size: 0.88rem;
-  font-weight: 600;
-  padding: 9px 16px;
-  border-radius: 8px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  padding: 8px 14px;
+  border-radius: 6px;
   border: none;
   cursor: pointer;
   transition: all 0.2s;
-  text-decoration: none;
 }
 
 .btn-primary {
-  background: linear-gradient(135deg, #4f46e5, #6366f1);
+  background: linear-gradient(135deg, #ef4444, #dc2626);
   color: white;
-  box-shadow: 0 4px 12px rgba(79, 70, 229, 0.35);
-}
-
-.btn-primary:hover {
-  background: linear-gradient(135deg, #4338ca, #4f46e5);
-  transform: translateY(-1px);
 }
 
 .btn-export {
   background: linear-gradient(135deg, #ea580c, #f59e0b);
   color: white;
   box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4);
-  font-size: 0.95rem;
-  padding: 10px 22px;
+  font-size: 0.92rem;
+  padding: 9px 18px;
 }
 
 .btn-export:hover {
   background: linear-gradient(135deg, #c2410c, #d97706);
   transform: translateY(-1px);
-  box-shadow: 0 6px 18px rgba(234, 88, 12, 0.5);
 }
 
 .btn-secondary {
-  background-color: #1e293b;
-  color: #cbd5e1;
-  border: 1px solid #334155;
+  background-color: #1f2937;
+  color: #e5e7eb;
+  border: 1px solid #374151;
 }
 
 .btn-secondary:hover {
-  background-color: #273549;
-  color: #fff;
+  background-color: #2b384c;
 }
 
 .btn-sm {
-  padding: 5px 10px;
-  font-size: 0.78rem;
+  padding: 4px 8px;
+  font-size: 0.75rem;
 }
 
 .btn-danger-sm {
   background: #7f1d1d;
   color: #fecaca;
-  padding: 4px 8px;
-  font-size: 0.75rem;
+  padding: 3px 6px;
+  font-size: 0.72rem;
   border-radius: 4px;
   border: none;
   cursor: pointer;
 }
 
-.btn-danger-sm:hover {
-  background: #991b1b;
-}
-
 /* ===================================================
-   海報畫布區域 (Poster Canvas)
+   海報畫布核心 (100% 潔白實底、無黑條色塊、排版均衡)
    =================================================== */
 
 .poster-canvas-wrapper {
@@ -400,296 +381,332 @@ textarea {
   transform-origin: top center;
 }
 
-/* 海報本體 - 基礎設定 (基準預設寬度 800px) */
 .poster {
   width: 800px;
-  height: 1131px; /* A4/A3/B2 比例 1:1.414 */
-  background-color: #ffffff;
-  color: #1e293b;
+  height: 1131px;
+  background: #ffffff !important;
+  color: #0f172a;
   position: relative;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.75), 0 0 0 1px rgba(255, 255, 255, 0.1);
+  overflow: hidden !important;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
   user-select: none;
   font-family: var(--font-sans);
+  border: none;
+  border-radius: 0 !important;
 }
 
-/* 尺寸規格類別 */
 .poster.size-a4,
 .poster.size-a3,
 .poster.size-b2 {
-  /* 標準國際列印比例 1:√2 (約 1:1.414) */
   width: 800px;
   height: 1131px;
 }
 
 .poster.size-story {
-  /* 9:16 IG 限時動態 / 豎屏貼文 */
   width: 720px;
   height: 1280px;
 }
 
 .poster.size-post {
-  /* 4:5 社群直式貼文 */
   width: 760px;
   height: 950px;
 }
 
 .poster.size-square {
-  /* 1:1 正方形貼文 */
   width: 800px;
   height: 800px;
 }
-
-/* ===================================================
-   海報內部元素排版
-   =================================================== */
 
 .poster-inner {
   height: 100%;
   display: flex;
   flex-direction: column;
-  padding: 36px 40px 32px;
+  padding: 24px 28px 22px;
   position: relative;
   z-index: 2;
-  gap: 16px;
+  gap: 12px;
   justify-content: space-between;
+  background: #ffffff;
 }
 
-/* 頂部裝飾條與社團資訊列 */
+/* 1. 頂部社團資訊 */
 .poster-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  padding-bottom: 12px;
-  border-bottom: 2px dashed rgba(0, 0, 0, 0.12);
+  gap: 14px;
+  padding-bottom: 8px;
+  border-bottom: 2px solid #fee2e2;
 }
 
 .club-brand-wrap {
   display: flex;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .poster-logo {
   width: 64px;
   height: 64px;
-  border-radius: 14px;
-  object-fit: cover;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-  border: 2px solid #ffffff;
-  background-color: #f1f5f9;
+  border-radius: 12px;
+  background: #ffffff;
+  border: 2px solid #ef4444;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 2rem;
-  overflow: hidden;
   flex-shrink: 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
 }
 
 .poster-logo img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  padding: 2px;
 }
 
 .club-name-group {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 2px;
 }
 
 .poster-club-name {
   font-size: 1.75rem;
   font-weight: 900;
   letter-spacing: -0.5px;
-  line-height: 1.15;
+  line-height: 1.1;
+  color: #b91c1c;
 }
 
 .poster-club-subtitle {
-  font-size: 0.92rem;
-  font-weight: 600;
-  opacity: 0.85;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #475569;
+  letter-spacing: 0.2px;
 }
 
 .poster-social-tags {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  gap: 5px;
+  gap: 4px;
 }
 
 .social-pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  font-size: 0.82rem;
-  font-weight: 700;
-  padding: 4px 12px;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 3px 10px;
   border-radius: 999px;
-  background: rgba(0, 0, 0, 0.07);
+  background: #fee2e2;
+  color: #b91c1c;
+  border: 1px solid #fecaca;
 }
 
-/* 主標題區 (新生茶會 / 招新) */
+/* 2. 主視覺標題 (Hero) - 徹底移除 background-clip 避免出現長方色塊！ */
 .poster-hero {
   text-align: center;
-  padding: 4px 0;
-  position: relative;
+  padding: 2px 0;
 }
 
 .hero-tagline {
   display: inline-block;
-  font-size: 0.95rem;
-  font-weight: 800;
-  letter-spacing: 2px;
+  font-size: 0.85rem;
+  font-weight: 900;
+  letter-spacing: 1.5px;
   text-transform: uppercase;
-  padding: 4px 16px;
-  border-radius: 6px;
+  padding: 3px 14px;
+  border-radius: 4px;
   margin-bottom: 6px;
+  background: #fee2e2;
+  color: #dc2626;
+  border: 1px solid #fca5a5;
 }
 
 .poster-event-title {
-  font-size: 2.75rem;
+  font-size: 2.35rem;
   font-weight: 900;
   line-height: 1.15;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
+  color: #b91c1c !important; /* 實色經典紅，徹底消除長方形色塊 */
+  background: none !important;
   margin-bottom: 4px;
 }
 
 .poster-event-theme {
-  font-size: 1.15rem;
-  font-weight: 700;
-  opacity: 0.9;
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #1e293b;
+  letter-spacing: 0.2px;
 }
 
-/* 吸睛標語橫幅 (點心飲料 / 好康福利) */
-.poster-slogan-banner {
-  background: linear-gradient(90deg, #ffedd5, #fee2e2);
-  border: 2px solid #fbbf24;
+/* 3. 滿版熱血社員大合照展示 (精緻相框、無刺眼黑邊) */
+.poster-photo-container {
+  width: 100%;
+  height: 250px;
   border-radius: 12px;
-  padding: 10px 18px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+  border: 2px solid #cbd5e1;
+  background: #f1f5f9;
+  flex-shrink: 0;
+}
+
+.poster-photo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 25%;
+  display: block;
+}
+
+.poster-photo-badge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(15, 23, 42, 0.85));
+  color: #ffffff;
+  font-size: 0.82rem;
+  font-weight: 800;
+  padding: 8px 12px 6px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+/* 4. 吸睛好康標語橫幅 */
+.poster-slogan-banner {
+  background: linear-gradient(90deg, #fef3c7 0%, #fee2e2 100%);
+  border: 2px solid #f59e0b;
+  border-radius: 10px;
+  padding: 8px 14px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 14px;
-  box-shadow: 0 4px 12px -2px rgba(245, 158, 11, 0.25);
+  gap: 12px;
+  box-shadow: 0 3px 10px rgba(245, 158, 11, 0.2);
 }
 
 .slogan-icon {
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   animation: pulse 2s infinite ease-in-out;
+  flex-shrink: 0;
 }
 
 .slogan-text-box {
   display: flex;
   flex-direction: column;
-  text-align: center;
+  flex: 1;
 }
 
 .slogan-main-text {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 900;
   color: #b45309;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.3px;
+  line-height: 1.25;
 }
 
 .slogan-sub-text {
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.78rem;
+  font-weight: 700;
   color: #78350f;
   margin-top: 1px;
+  line-height: 1.3;
 }
 
-/* 核心雙欄內容佈局：左邊資訊、右邊照片或特色 */
+/* 5. 核心雙欄格 (左：茶會詳情 / 右：握力器大挑戰) */
 .poster-mid-grid {
   display: grid;
-  grid-template-columns: 1.15fr 1fr;
-  gap: 16px;
+  grid-template-columns: 1.05fr 1fr;
+  gap: 12px;
   flex: 1;
   min-height: 0;
 }
 
-.poster.size-square .poster-mid-grid {
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-/* 新生茶會詳細資訊卡片 */
+/* 左欄：茶會時程卡片 */
 .poster-card {
-  background: rgba(255, 255, 255, 0.94);
-  border-radius: 14px;
-  padding: 16px 18px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  border: 1.5px solid #e2e8f0;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .card-title-bar {
   display: flex;
   align-items: center;
   gap: 8px;
-  font-size: 1.05rem;
-  font-weight: 800;
-  padding-bottom: 6px;
-  border-bottom: 2px solid rgba(0, 0, 0, 0.08);
+  font-size: 0.98rem;
+  font-weight: 900;
+  color: #b91c1c;
+  padding-bottom: 5px;
+  border-bottom: 2px solid #fee2e2;
 }
 
 .info-item {
   display: flex;
   align-items: flex-start;
   gap: 8px;
-  font-size: 0.92rem;
-  line-height: 1.4;
+  font-size: 0.85rem;
+  line-height: 1.35;
 }
 
 .info-bullet {
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   flex-shrink: 0;
 }
 
 .info-label {
   font-weight: 800;
   color: #334155;
-  margin-right: 4px;
+  margin-right: 2px;
+  flex-shrink: 0;
 }
 
 .info-val {
-  font-weight: 600;
+  font-weight: 700;
   color: #0f172a;
-  word-break: break-word;
 }
 
 .highlight-chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+  margin-top: 2px;
 }
 
 .highlight-chip {
-  background: #f1f5f9;
-  color: #334155;
-  font-size: 0.78rem;
+  background: #f8fafc;
+  color: #1e293b;
+  font-size: 0.72rem;
   font-weight: 700;
-  padding: 3px 9px;
-  border-radius: 6px;
+  padding: 4px 6px;
+  border-radius: 5px;
   border: 1px solid #e2e8f0;
+  text-align: center;
 }
 
-/* 握力器挑戰專屬模組 */
+/* 右欄：握力器挑戰卡片 (升級為高質感深紅黑金漸層，擺脫死黑死沉！) */
 .grip-challenge-card {
-  background: linear-gradient(135deg, #18181b 0%, #27272a 100%);
+  background: linear-gradient(145deg, #881337 0%, #4c0519 100%);
   color: #ffffff;
-  border-radius: 14px;
-  padding: 14px 16px;
-  box-shadow: 0 8px 20px -4px rgba(0, 0, 0, 0.3);
+  border-radius: 12px;
+  padding: 12px 14px;
+  box-shadow: 0 6px 16px rgba(136, 19, 55, 0.3);
   position: relative;
   overflow: hidden;
-  border: 2px solid #ef4444;
+  border: 2px solid #fbbf24;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -698,54 +715,53 @@ textarea {
 
 .grip-badge-strip {
   position: absolute;
-  top: 10px;
-  right: -28px;
-  background: #ef4444;
-  color: #ffffff;
-  font-size: 0.68rem;
+  top: 8px;
+  right: -26px;
+  background: #fbbf24;
+  color: #881337;
+  font-size: 0.65rem;
   font-weight: 900;
-  padding: 2px 28px;
+  padding: 2px 24px;
   transform: rotate(35deg);
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
 }
 
 .grip-header {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 1.1rem;
+  font-size: 0.98rem;
   font-weight: 900;
-  color: #fbbf24;
+  color: #fef08a;
+  line-height: 1.25;
 }
 
 .grip-desc {
-  font-size: 0.82rem;
+  font-size: 0.76rem;
   line-height: 1.35;
-  opacity: 0.92;
+  color: #fecdd3;
 }
 
 .grip-tier-list {
   display: flex;
   flex-direction: column;
-  gap: 5px;
-  background: rgba(255, 255, 255, 0.08);
-  padding: 8px 10px;
-  border-radius: 8px;
+  gap: 8px;
+  flex: 1;
+  justify-content: space-around;
+  margin-top: 4px;
 }
 
 .grip-tier {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
-  font-size: 0.8rem;
-  font-weight: 600;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 0.78rem;
+  background: rgba(0, 0, 0, 0.35);
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(251, 191, 36, 0.35);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
 .tier-condition {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  color: #fca5a5;
+  color: #fecdd3;
   font-weight: 800;
 }
 
@@ -754,128 +770,68 @@ textarea {
   font-weight: 700;
 }
 
-/* 照片展示區塊 */
-.poster-photo-section {
-  display: flex;
-  flex-direction: column;
-  height: 100%;
-}
-
-.photo-gallery {
-  display: grid;
-  gap: 8px;
-  height: 100%;
-  min-height: 180px;
-}
-
-.photo-gallery.layout-single {
-  grid-template-columns: 1fr;
-}
-
-.photo-gallery.layout-double {
-  grid-template-columns: 1fr 1fr;
-}
-
-.photo-gallery.layout-triple {
-  grid-template-columns: 1.1fr 1fr;
-}
-
-.gallery-sub-col {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.poster-photo-img-wrap {
-  width: 100%;
-  height: 100%;
-  min-height: 90px;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
-  border: 2px solid rgba(255, 255, 255, 0.9);
-  position: relative;
-  background: #cbd5e1;
-}
-
-.poster-photo-img-wrap img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.photo-caption {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
-  color: #fff;
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 6px 8px 4px;
-  text-align: center;
-}
-
-/* 底部行動呼籲區 (QR Code + 報名提示) */
+/* 6. 底部行動呼籲與官方 IG 藍白 QR Code */
 .poster-footer {
-  background: rgba(255, 255, 255, 0.95);
-  border-radius: 16px;
-  padding: 12px 18px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 10px 14px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 16px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-  border: 1px solid rgba(0, 0, 0, 0.08);
+  gap: 12px;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.05);
+  border: 1.5px solid #fee2e2;
+  margin-top: auto;
 }
 
 .footer-action-text {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 2px;
+  flex: 1;
 }
 
 .action-badge {
   display: inline-block;
   align-self: flex-start;
-  font-size: 0.75rem;
-  font-weight: 800;
-  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 900;
+  padding: 2px 8px;
   border-radius: 999px;
   background: #ef4444;
   color: #ffffff;
 }
 
 .action-title {
-  font-size: 1.25rem;
+  font-size: 1.15rem;
   font-weight: 900;
+  color: #0f172a;
   letter-spacing: -0.2px;
 }
 
 .action-desc {
-  font-size: 0.85rem;
-  font-weight: 600;
-  color: #64748b;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #475569;
+  line-height: 1.35;
 }
 
 .qr-code-box {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
+  gap: 3px;
   background: #ffffff;
-  padding: 6px;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  border: 1px solid #e2e8f0;
+  padding: 5px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+  border: 1px solid #cbd5e1;
   flex-shrink: 0;
 }
 
 .qr-canvas-container {
-  width: 90px;
-  height: 90px;
+  width: 88px;
+  height: 88px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -883,153 +839,36 @@ textarea {
 
 .qr-canvas-container img,
 .qr-canvas-container canvas {
-  width: 90px !important;
-  height: 90px !important;
+  width: 88px !important;
+  height: 88px !important;
   display: block;
 }
 
 .qr-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  color: #475569;
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: #0284c7;
 }
 
-/* ===================================================
-   主題風格切換 (Theme Presets)
-   =================================================== */
-
-/* 1. 活力熱血運動風 (預設) */
-.poster.theme-sports {
-  background: linear-gradient(170deg, #fef2f2 0%, #fff7ed 40%, #ffffff 100%);
-  color: #1c1917;
-}
-.poster.theme-sports .poster-club-name { color: #b91c1c; }
-.poster.theme-sports .hero-tagline { background: #fee2e2; color: #dc2626; }
-.poster.theme-sports .poster-event-title {
-  background: linear-gradient(135deg, #b91c1c 0%, #ea580c 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.poster.theme-sports .social-pill { background: #fee2e2; color: #b91c1c; }
-.poster.theme-sports .card-title-bar { color: #b91c1c; }
-
-/* 2. 潮酷黑金電競/熱舞風 */
-.poster.theme-dark {
-  background: linear-gradient(160deg, #09090b 0%, #18181b 50%, #27272a 100%);
-  color: #f4f4f5;
-}
-.poster.theme-dark .poster-header { border-bottom-color: rgba(255, 255, 255, 0.15); }
-.poster.theme-dark .poster-club-name { color: #fbbf24; }
-.poster.theme-dark .poster-club-subtitle { color: #d4d4d8; }
-.poster.theme-dark .hero-tagline {
-  background: rgba(251, 191, 36, 0.2);
-  color: #fbbf24;
-  border: 1px solid #fbbf24;
-}
-.poster.theme-dark .poster-event-title {
-  background: linear-gradient(135deg, #fbbf24 0%, #f97316 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.poster.theme-dark .poster-card {
-  background: rgba(39, 39, 42, 0.9);
-  border-color: rgba(255, 255, 255, 0.12);
-  color: #f4f4f5;
-}
-.poster.theme-dark .card-title-bar {
-  color: #fbbf24;
-  border-bottom-color: rgba(255, 255, 255, 0.1);
-}
-.poster.theme-dark .info-label { color: #a1a1aa; }
-.poster.theme-dark .info-val { color: #ffffff; }
-.poster.theme-dark .highlight-chip {
-  background: #3f3f46;
-  color: #e4e4e7;
-  border-color: #52525b;
-}
-.poster.theme-dark .social-pill {
-  background: rgba(251, 191, 36, 0.15);
-  color: #fbbf24;
-}
-.poster.theme-dark .poster-footer {
-  background: rgba(24, 24, 27, 0.95);
-  border-color: rgba(255, 255, 255, 0.15);
-  color: #f4f4f5;
-}
-.poster.theme-dark .action-title { color: #fbbf24; }
-.poster.theme-dark .action-desc { color: #a1a1aa; }
-
-/* 3. 日系清新文青風 */
-.poster.theme-green {
-  background: linear-gradient(170deg, #f0fdf4 0%, #ecfdf5 45%, #ffffff 100%);
-  color: #064e3b;
-}
-.poster.theme-green .poster-club-name { color: #047857; }
-.poster.theme-green .hero-tagline { background: #d1fae5; color: #065f46; }
-.poster.theme-green .poster-event-title {
-  background: linear-gradient(135deg, #047857 0%, #0d9488 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.poster.theme-green .social-pill { background: #d1fae5; color: #065f46; }
-.poster.theme-green .card-title-bar { color: #047857; }
-.poster.theme-green .grip-challenge-card { border-color: #10b981; }
-.poster.theme-green .action-badge { background: #059669; }
-
-/* 4. 晨曦科技藍白風 */
-.poster.theme-blue {
-  background: linear-gradient(170deg, #eff6ff 0%, #f0fdfa 45%, #ffffff 100%);
-  color: #1e3a8a;
-}
-.poster.theme-blue .poster-club-name { color: #1d4ed8; }
-.poster.theme-blue .hero-tagline { background: #dbeafe; color: #1e40af; }
-.poster.theme-blue .poster-event-title {
-  background: linear-gradient(135deg, #1d4ed8 0%, #0284c7 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.poster.theme-blue .social-pill { background: #dbeafe; color: #1e40af; }
-.poster.theme-blue .card-title-bar { color: #1d4ed8; }
-.poster.theme-blue .grip-challenge-card { border-color: #2563eb; }
-.poster.theme-blue .action-badge { background: #2563eb; }
-
-/* 5. 夢幻紫粉潮流風 */
-.poster.theme-purple {
-  background: linear-gradient(170deg, #faf5ff 0%, #fdf2f8 45%, #ffffff 100%);
-  color: #581c87;
-}
-.poster.theme-purple .poster-club-name { color: #7e22ce; }
-.poster.theme-purple .hero-tagline { background: #f3e8ff; color: #7e22ce; }
-.poster.theme-purple .poster-event-title {
-  background: linear-gradient(135deg, #7e22ce 0%, #db2777 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-.poster.theme-purple .social-pill { background: #f3e8ff; color: #7e22ce; }
-.poster.theme-purple .card-title-bar { color: #7e22ce; }
-.poster.theme-purple .grip-challenge-card { border-color: #9333ea; }
-.poster.theme-purple .action-badge { background: #9333ea; }
-
-/* 狀態遮罩 Loading Overlay */
 .loading-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(15, 23, 42, 0.8);
+  background: rgba(3, 7, 18, 0.85);
   backdrop-filter: blur(6px);
   z-index: 100;
   display: none;
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
   color: #fff;
 }
 
 .spinner {
-  width: 50px;
-  height: 50px;
+  width: 44px;
+  height: 44px;
   border: 4px solid rgba(255, 255, 255, 0.2);
-  border-top-color: #f59e0b;
+  border-top-color: #ef4444;
   border-radius: 50%;
   animation: spin 0.8s linear infinite;
 }
@@ -1040,5 +879,5 @@ textarea {
 
 @keyframes pulse {
   0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.08); }
+  50% { transform: scale(1.06); }
 }

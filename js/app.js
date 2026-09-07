@@ -1,69 +1,65 @@
 ﻿/**
- * 社團海報生成器 - 核心互動邏輯
+ * 社團海報生成器 - 北科健美健身社 (NTUT BBFC) 核心邏輯
  */
+
+const b64Logo = (typeof DEFAULT_ASSETS !== 'undefined') ? DEFAULT_ASSETS.logo : 'assets/ntut_logo.png';
+const b64Qr = (typeof DEFAULT_ASSETS !== 'undefined') ? DEFAULT_ASSETS.igQr : 'assets/ig_qr.png';
+const b64Photo = (typeof DEFAULT_ASSETS !== 'undefined') ? DEFAULT_ASSETS.clubPhoto : 'assets/club_photo1.jpg';
 
 const defaultData = {
   theme: 'theme-sports',
   size: 'size-a4',
-  exportScale: 3, // 預設 3x (達到 300 DPI 級印刷畫質)
+  exportScale: 3, // 300 DPI 印刷級
   
-  // 1. 社團基本資料
-  clubName: '極限體適能與攀岩社',
-  clubSubtitle: 'LIMITLESS FITNESS & CLIMBING CLUB',
-  logoText: '🧗‍♂️',
-  logoImage: '',
-  instagram: '@limitless_fit_club',
-  facebook: '極限體適能社 NTU',
-  lineId: '@fit_club2026',
+  // 1. 社團資料
+  clubName: '北科健美健身社',
+  clubSubtitle: 'NTUT Bodybuilding & Fitness Club (NTUT BBFC)',
+  logoText: '🏋️‍♂️',
+  logoImage: b64Logo,
+  instagram: '@NTUT_BBFC',
+  facebook: '北科健美健身社 NTUT BBFC',
+  lineId: 'NTUT BBFC 社群',
 
-  // 2. 新生茶會資訊
-  eventTitle: '2026 新生體驗茶會',
-  eventTagline: '★ WELCOME PARTY & RECRUITMENT ★',
-  eventTheme: '打破舒適圈！找到志同道合的熱血夥伴',
-  eventDate: '2026.09.24 (四) 18:30 入場',
-  eventLocation: '活動中心 3 樓 多功能韻律教室',
-  eventTarget: '全校新生、轉學生及熱愛運動的夥伴',
-  highlights: ['熱血社團介紹', '專業器材初體驗', '學長姐經驗分享', '迎新交流破冰'],
-
-  // 3. 吸睛標語 (小點心/好康福利)
-  sloganIcon: '🍕',
-  sloganMain: '現場備有精緻小點心、手搖飲免費享用！',
-  sloganSub: '★ 早鳥前 30 名報到，加碼送社團特製運動水壺 ★',
-
-  // 4. 握力器挑戰專區
-  enableGripChallenge: true,
-  gripTitle: '🔥 攤位限定：握力極限大挑戰！',
-  gripDesc: '現場握一下，挑戰全校最強神力！當場測驗即可累積積分抽大獎。',
-  gripTiers: [
-    { tier: '🏆 猛獸霸王 (男 55kg+ / 女 38kg+)', prize: '社團限定排汗衫 + 能量棒' },
-    { tier: '🥈 實力爆發 (男 45kg+ / 女 30kg+)', prize: '超商百元禮券 / 運動毛巾' },
-    { tier: '🎁 挑戰有禮 (人人有獎)', prize: '美味小點心 + 運動飲料' }
+  // 2. 新生茶會
+  eventTitle: '116學年度 健美社新生茶會＆社課體驗',
+  eventTagline: '★ NTUT BBFC WELCOME PARTY & TRIAL ★',
+  eventTheme: '我們不只練大肌肌，生活也超精采！',
+  eventDate: '9 月末（確切日期鎖定 IG 最新公告！）',
+  eventLocation: '學校健身房／社團辦公室',
+  eventTarget: '全校新生、轉學生及想打造體態的每一位夥伴',
+  highlights: [
+    '零基礎器材安全操作指南',
+    '新手增肌減脂飲食秘訣',
+    '學長姐手把手陪伴帶練',
+    '打破去健身房的尷尬感'
   ],
 
-  // 5. 照片展示
-  photoLayout: 'layout-double',
-  photos: [
-    {
-      url: 'assets/photo1.svg',
-      caption: '日常社課重訓指導'
-    },
-    {
-      url: 'assets/photo2.svg',
-      caption: '戶外攀岩抱石挑戰'
-    },
-    {
-      url: 'assets/photo3.svg',
-      caption: '歡樂熱血團練'
-    }
+  // 3. 活動照片 (社員熱血秀肌肉大合照)
+  photoUrl: b64Photo,
+  photoCaption: '【日常帶練】我們不只練大肌肌，生活也超精采！',
+
+  // 4. 吸睛好康標語
+  sloganIcon: '🧋',
+  sloganMain: '打卡追蹤免費拿！麥香奶茶 ＆ 高蛋白補給等你領！',
+  sloganSub: '★ 只要動動手指追蹤 IG，能量補給直接送，先補營養再練線條！ ★',
+
+  // 5. 握力器挑戰專區
+  enableGripChallenge: true,
+  gripTitle: '【大力士握力大挑戰 ⚡ 測測你的爆發力！】',
+  gripDesc: '凡現場挑戰握力器，不限成績直接幫你蓋社博集章！達成門檻再加碼送小禮物／高蛋白補給！',
+  gripTiers: [
+    { tier: '🦍 金剛神力級（男 > 50kg / 女 > 30kg）', prize: '榮登健美社榮譽巨巨，小點心任選！' },
+    { tier: '🐣 潛力新手級（只要敢握就給獎）', prize: '社博集章直接蓋，能量點心帶走！' },
+    { tier: '🔥 隱藏進化獎（加入我們一起變強）', prize: '免費享學長姐新手指導帶練一次！' }
   ],
 
   // 6. QR Code 與行動呼籲
-  qrText: 'https://forms.gle/sample-club-signup-2026',
-  qrLabel: '掃描立即報名茶會',
-  customQrImage: '',
-  actionBadge: '報名免費・名額有限',
-  actionTitle: '立即掃碼報名茶會！',
-  actionDesc: '填寫表單預留座位與點心份數，現場憑確認信領取迎新好禮！'
+  qrText: 'https://instagram.com/NTUT_BBFC',
+  qrLabel: '追蹤 IG 鎖定最新消息',
+  customQrImage: b64Qr,
+  actionBadge: '社博限定・打卡就送',
+  actionTitle: '立即追蹤官方 IG：@NTUT_BBFC！',
+  actionDesc: '出示追蹤畫面現場領取麥香奶茶或高蛋白補給，挑戰握力器再拿好禮！'
 };
 
 let state = { ...defaultData };
@@ -78,7 +74,6 @@ document.addEventListener('DOMContentLoaded', () => {
   loadSavedState();
   initFormBindings();
   updatePosterDOM();
-  generateQRCode();
   autoFitZoom();
   setupEventListeners();
 });
@@ -111,9 +106,7 @@ function initFormBindings() {
   const fieldMap = {
     'input-clubName': 'clubName',
     'input-clubSubtitle': 'clubSubtitle',
-    'input-logoText': 'logoText',
     'input-instagram': 'instagram',
-    'input-facebook': 'facebook',
     'input-lineId': 'lineId',
     'input-eventTitle': 'eventTitle',
     'input-eventTagline': 'eventTagline',
@@ -121,12 +114,12 @@ function initFormBindings() {
     'input-eventDate': 'eventDate',
     'input-eventLocation': 'eventLocation',
     'input-eventTarget': 'eventTarget',
+    'input-caption-0': 'photoCaption',
     'input-sloganIcon': 'sloganIcon',
     'input-sloganMain': 'sloganMain',
     'input-sloganSub': 'sloganSub',
     'input-gripTitle': 'gripTitle',
     'input-gripDesc': 'gripDesc',
-    'input-qrText': 'qrText',
     'input-qrLabel': 'qrLabel',
     'input-actionBadge': 'actionBadge',
     'input-actionTitle': 'actionTitle',
@@ -140,7 +133,6 @@ function initFormBindings() {
       el.addEventListener('input', (e) => {
         state[key] = e.target.value;
         updatePosterDOM();
-        if (key === 'qrText') generateQRCode();
         saveState();
       });
     }
@@ -207,16 +199,6 @@ function initFormBindings() {
     });
   }
 
-  const photoLayoutSelect = document.getElementById('select-photoLayout');
-  if (photoLayoutSelect) {
-    photoLayoutSelect.value = state.photoLayout;
-    photoLayoutSelect.addEventListener('change', (e) => {
-      state.photoLayout = e.target.value;
-      updatePosterDOM();
-      saveState();
-    });
-  }
-
   setupFileUploads();
 }
 
@@ -230,7 +212,6 @@ function setupFileUploads() {
         reader.onload = (ev) => {
           state.logoImage = ev.target.result;
           updatePosterDOM();
-          renderLogoPreview();
           saveState();
         };
         reader.readAsDataURL(file);
@@ -238,36 +219,21 @@ function setupFileUploads() {
     });
   }
 
-  [0, 1, 2].forEach(idx => {
-    const fileInput = document.getElementById(`upload-photo-${idx}`);
-    if (fileInput) {
-      fileInput.addEventListener('change', (e) => {
-        const file = e.target.files[0];
-        if (file) {
-          const reader = new FileReader();
-          reader.onload = (ev) => {
-            if (!state.photos[idx]) state.photos[idx] = { url: '', caption: '' };
-            state.photos[idx].url = ev.target.result;
-            updatePosterDOM();
-            renderPhotoPreviews();
-            saveState();
-          };
-          reader.readAsDataURL(file);
-        }
-      });
-    }
-
-    const captionInput = document.getElementById(`input-caption-${idx}`);
-    if (captionInput) {
-      captionInput.value = state.photos[idx]?.caption || '';
-      captionInput.addEventListener('input', (e) => {
-        if (!state.photos[idx]) state.photos[idx] = { url: '', caption: '' };
-        state.photos[idx].caption = e.target.value;
-        updatePosterDOM();
-        saveState();
-      });
-    }
-  });
+  const photoInput = document.getElementById('upload-photo-0');
+  if (photoInput) {
+    photoInput.addEventListener('change', (e) => {
+      const file = e.target.files[0];
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = (ev) => {
+          state.photoUrl = ev.target.result;
+          updatePosterDOM();
+          saveState();
+        };
+        reader.readAsDataURL(file);
+      }
+    });
+  }
 
   const qrFileInput = document.getElementById('upload-qr');
   if (qrFileInput) {
@@ -277,8 +243,7 @@ function setupFileUploads() {
         const reader = new FileReader();
         reader.onload = (ev) => {
           state.customQrImage = ev.target.result;
-          renderQRCodeElement();
-          renderQrPreview();
+          updatePosterDOM();
           saveState();
         };
         reader.readAsDataURL(file);
@@ -290,6 +255,7 @@ function setupFileUploads() {
 function updatePosterDOM() {
   poster.className = `poster ${state.theme} ${state.size}`;
 
+  // 社團
   document.getElementById('p-clubName').textContent = state.clubName;
   document.getElementById('p-clubSubtitle').textContent = state.clubSubtitle;
 
@@ -297,39 +263,39 @@ function updatePosterDOM() {
   if (state.logoImage) {
     logoContainer.innerHTML = `<img src="${state.logoImage}" alt="Logo">`;
   } else {
-    logoContainer.innerHTML = `<span>${state.logoText || '🎯'}</span>`;
+    logoContainer.innerHTML = `<span>${state.logoText || '🏋️‍♂️'}</span>`;
   }
 
-  const igEl = document.getElementById('p-instagram');
-  const fbEl = document.getElementById('p-facebook');
-  const lineEl = document.getElementById('p-lineId');
+  document.getElementById('p-instagram').textContent = `📸 ${state.instagram}`;
+  document.getElementById('p-lineId').textContent = `💬 ${state.lineId}`;
 
-  igEl.style.display = state.instagram ? 'inline-flex' : 'none';
-  igEl.innerHTML = `<span style="color:#e1306c">📸</span> ${state.instagram}`;
-
-  fbEl.style.display = state.facebook ? 'inline-flex' : 'none';
-  fbEl.innerHTML = `<span style="color:#1877f2">👥</span> ${state.facebook}`;
-
-  lineEl.style.display = state.lineId ? 'inline-flex' : 'none';
-  lineEl.innerHTML = `<span style="color:#06c755">💬</span> ${state.lineId}`;
-
+  // 活動
   document.getElementById('p-eventTagline').textContent = state.eventTagline;
   document.getElementById('p-eventTitle').textContent = state.eventTitle;
   document.getElementById('p-eventTheme').textContent = state.eventTheme;
-
   document.getElementById('p-eventDate').textContent = state.eventDate;
   document.getElementById('p-eventLocation').textContent = state.eventLocation;
   document.getElementById('p-eventTarget').textContent = state.eventTarget;
 
+  // 亮點
   const chipsContainer = document.getElementById('p-highlights');
   chipsContainer.innerHTML = state.highlights
     .map(hl => `<span class="highlight-chip">✨ ${hl}</span>`)
     .join('');
 
-  document.getElementById('p-sloganIcon').textContent = state.sloganIcon || '🎉';
+  // 照片
+  const photoImg = document.getElementById('p-photoImg');
+  if (photoImg && state.photoUrl) {
+    photoImg.src = state.photoUrl;
+  }
+  document.getElementById('p-photoCaption').textContent = state.photoCaption || '';
+
+  // 標語
+  document.getElementById('p-sloganIcon').textContent = state.sloganIcon || '🧋';
   document.getElementById('p-sloganMain').textContent = state.sloganMain;
   document.getElementById('p-sloganSub').textContent = state.sloganSub;
 
+  // 握力器
   const gripSection = document.getElementById('p-gripChallenge');
   if (state.enableGripChallenge) {
     gripSection.style.display = 'flex';
@@ -347,162 +313,55 @@ function updatePosterDOM() {
     gripSection.style.display = 'none';
   }
 
-  renderPosterPhotos();
-
+  // 底部
   document.getElementById('p-actionBadge').textContent = state.actionBadge;
   document.getElementById('p-actionTitle').textContent = state.actionTitle;
   document.getElementById('p-actionDesc').textContent = state.actionDesc;
   document.getElementById('p-qrLabel').textContent = state.qrLabel;
 
-  renderQRCodeElement();
-}
-
-function renderPosterPhotos() {
-  const gallery = document.getElementById('p-photoGallery');
-  gallery.className = `photo-gallery ${state.photoLayout}`;
-
-  const validPhotos = state.photos.filter(p => p && p.url);
-
-  if (state.photoLayout === 'layout-single') {
-    const p1 = validPhotos[0] || { url: '', caption: '' };
-    gallery.innerHTML = `
-      <div class="poster-photo-img-wrap">
-        ${p1.url ? `<img src="${p1.url}" alt="活動照" crossorigin="anonymous">` : '<div style="display:flex;height:100%;align-items:center;justify-content:center;color:#64748b;">暫無照片</div>'}
-        ${p1.caption ? `<div class="photo-caption">${p1.caption}</div>` : ''}
-      </div>
-    `;
-  } else if (state.photoLayout === 'layout-double') {
-    const p1 = validPhotos[0] || { url: '', caption: '' };
-    const p2 = validPhotos[1] || validPhotos[0] || { url: '', caption: '' };
-    gallery.innerHTML = `
-      <div class="poster-photo-img-wrap">
-        ${p1.url ? `<img src="${p1.url}" alt="活動照 1" crossorigin="anonymous">` : '<div style="display:flex;height:100%;align-items:center;justify-content:center;color:#64748b;">暫無照片</div>'}
-        ${p1.caption ? `<div class="photo-caption">${p1.caption}</div>` : ''}
-      </div>
-      <div class="poster-photo-img-wrap">
-        ${p2.url ? `<img src="${p2.url}" alt="活動照 2" crossorigin="anonymous">` : '<div style="display:flex;height:100%;align-items:center;justify-content:center;color:#64748b;">暫無照片</div>'}
-        ${p2.caption ? `<div class="photo-caption">${p2.caption}</div>` : ''}
-      </div>
-    `;
-  } else {
-    const p1 = validPhotos[0] || { url: '', caption: '' };
-    const p2 = validPhotos[1] || { url: '', caption: '' };
-    const p3 = validPhotos[2] || { url: '', caption: '' };
-    gallery.innerHTML = `
-      <div class="poster-photo-img-wrap">
-        ${p1.url ? `<img src="${p1.url}" alt="活動焦點照" crossorigin="anonymous">` : '<div style="display:flex;height:100%;align-items:center;justify-content:center;color:#64748b;">焦點照片</div>'}
-        ${p1.caption ? `<div class="photo-caption">${p1.caption}</div>` : ''}
-      </div>
-      <div class="gallery-sub-col">
-        <div class="poster-photo-img-wrap">
-          ${p2.url ? `<img src="${p2.url}" alt="活動照 2" crossorigin="anonymous">` : '<div style="display:flex;height:100%;align-items:center;justify-content:center;color:#64748b;">照片 2</div>'}
-          ${p2.caption ? `<div class="photo-caption">${p2.caption}</div>` : ''}
-        </div>
-        <div class="poster-photo-img-wrap">
-          ${p3.url ? `<img src="${p3.url}" alt="活動照 3" crossorigin="anonymous">` : '<div style="display:flex;height:100%;align-items:center;justify-content:center;color:#64748b;">照片 3</div>'}
-          ${p3.caption ? `<div class="photo-caption">${p3.caption}</div>` : ''}
-        </div>
-      </div>
-    `;
-  }
-}
-
-let qrCodeInstance = null;
-function generateQRCode() {
-  const container = document.getElementById('p-qrCodeContainer');
-  if (!container) return;
-
-  if (state.customQrImage) {
-    container.innerHTML = `<img src="${state.customQrImage}" alt="QR Code" style="width:90px;height:90px;object-fit:contain;">`;
-    return;
+  const qrContainer = document.getElementById('p-qrCodeContainer');
+  if (qrContainer && state.customQrImage) {
+    qrContainer.innerHTML = `<img src="${state.customQrImage}" alt="QR Code" style="width:82px;height:82px;object-fit:contain;border-radius:4px;">`;
   }
 
-  container.innerHTML = '';
-  if (window.QRCode && state.qrText) {
-    try {
-      qrCodeInstance = new QRCode(container, {
-        text: state.qrText,
-        width: 180,
-        height: 180,
-        colorDark: '#0f172a',
-        colorLight: '#ffffff',
-        correctLevel: QRCode.CorrectLevel.H
-      });
-    } catch (e) {
-      console.error('QRCode generation failed', e);
-      container.innerHTML = '<span style="font-size:10px;color:#94a3b8;">QR Code</span>';
-    }
+  renderThumbPreviews();
+}
+
+function renderThumbPreviews() {
+  const logoWrap = document.getElementById('logo-preview-wrap');
+  if (logoWrap) {
+    logoWrap.style.display = state.logoImage ? 'flex' : 'none';
+    if (state.logoImage) logoWrap.querySelector('img').src = state.logoImage;
   }
-}
 
-function renderQRCodeElement() {
-  if (state.customQrImage) {
-    const container = document.getElementById('p-qrCodeContainer');
-    if (container) {
-      container.innerHTML = `<img src="${state.customQrImage}" alt="自訂 QR Code" style="width:90px;height:90px;object-fit:contain;">`;
-    }
-  } else {
-    generateQRCode();
+  const photoWrap = document.getElementById('photo-preview-wrap-0');
+  if (photoWrap) {
+    photoWrap.style.display = state.photoUrl ? 'flex' : 'none';
+    if (state.photoUrl) photoWrap.querySelector('img').src = state.photoUrl;
   }
-}
 
-function renderLogoPreview() {
-  const wrap = document.getElementById('logo-preview-wrap');
-  if (!wrap) return;
-  if (state.logoImage) {
-    wrap.style.display = 'flex';
-    wrap.querySelector('img').src = state.logoImage;
-  } else {
-    wrap.style.display = 'none';
-  }
-}
-
-function renderPhotoPreviews() {
-  [0, 1, 2].forEach(idx => {
-    const wrap = document.getElementById(`photo-preview-wrap-${idx}`);
-    if (wrap) {
-      if (state.photos[idx]?.url) {
-        wrap.style.display = 'flex';
-        wrap.querySelector('img').src = state.photos[idx].url;
-      } else {
-        wrap.style.display = 'none';
-      }
-    }
-  });
-}
-
-function renderQrPreview() {
-  const wrap = document.getElementById('qr-preview-wrap');
-  if (!wrap) return;
-  if (state.customQrImage) {
-    wrap.style.display = 'flex';
-    wrap.querySelector('img').src = state.customQrImage;
-  } else {
-    wrap.style.display = 'none';
+  const qrWrap = document.getElementById('qr-preview-wrap');
+  if (qrWrap) {
+    qrWrap.style.display = state.customQrImage ? 'flex' : 'none';
+    if (state.customQrImage) qrWrap.querySelector('img').src = state.customQrImage;
   }
 }
 
 window.removeLogo = function() {
   state.logoImage = '';
-  renderLogoPreview();
   updatePosterDOM();
   saveState();
 };
 
 window.removePhoto = function(idx) {
-  if (state.photos[idx]) {
-    state.photos[idx].url = '';
-  }
-  renderPhotoPreviews();
+  state.photoUrl = '';
   updatePosterDOM();
   saveState();
 };
 
 window.removeCustomQr = function() {
   state.customQrImage = '';
-  renderQrPreview();
   updatePosterDOM();
-  generateQRCode();
   saveState();
 };
 
@@ -518,9 +377,9 @@ function setupEventListeners() {
   });
 
   document.getElementById('btn-reset')?.addEventListener('click', () => {
-    if (confirm('確定要還原成預設範例內容嗎？目前的編輯將會被覆蓋。')) {
-      state = JSON.parse(JSON.stringify(defaultData));
+    if (confirm('確定要還原成北科健美健身社的預設專屬內容嗎？')) {
       localStorage.removeItem('club_poster_data');
+      state = JSON.parse(JSON.stringify(defaultData));
       location.reload();
     }
   });
@@ -539,7 +398,7 @@ function setupEventListeners() {
   });
 }
 
-// 匯出海報 PNG (針對 A4, A3, B2, 限動與貼文尺寸優化)
+// 匯出海報 PNG (嚴格限制海報本體尺寸，強制純白背景，絕無透明邊界與溢出文字！)
 async function exportPosterPNG() {
   if (!window.html2canvas) {
     alert('圖片渲染庫尚未載入完成，請稍候重試！');
@@ -554,7 +413,6 @@ async function exportPosterPNG() {
   const originalTransform = posterWrapper.style.transform;
   posterWrapper.style.transform = 'none';
 
-  // 尺寸畫質倍率優化：確保 A4, A3, B2 印刷時達到 300 DPI 級別
   let actualScale = state.exportScale || 3;
   if (state.size === 'size-a3' && actualScale >= 3) {
     actualScale = Math.max(actualScale, 3.5);
@@ -563,30 +421,56 @@ async function exportPosterPNG() {
   }
 
   try {
-    await new Promise(res => setTimeout(res, 300));
+    await new Promise(res => setTimeout(res, 250));
 
+    // 嚴格只截取 poster 的寬高與起點，背景為純白實色
     const canvas = await html2canvas(poster, {
       scale: actualScale,
       useCORS: true,
       allowTaint: false,
       backgroundColor: '#ffffff',
-      logging: false,
-      windowWidth: poster.scrollWidth,
-      windowHeight: poster.scrollHeight
+      width: poster.offsetWidth,
+      height: poster.offsetHeight,
+      x: 0,
+      y: 0,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: poster.offsetWidth,
+      windowHeight: poster.offsetHeight
     });
 
-    const fileName = `${state.clubName || '社團'}_${state.eventTitle || '海報'}_${sizeName}.png`;
-    const link = document.createElement('a');
-    link.download = fileName;
-    link.href = canvas.toDataURL('image/png', 1.0);
-    link.click();
+    const fileName = `${state.clubName || '北科健美健身社'}_${state.eventTitle || '海報'}_${sizeName}.png`;
+    
+    if (canvas.toBlob) {
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          fallbackDataUrl(canvas, fileName);
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.download = fileName;
+        link.href = url;
+        link.click();
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+      }, 'image/png');
+    } else {
+      fallbackDataUrl(canvas, fileName);
+    }
   } catch (err) {
     console.error('海報生成失敗:', err);
-    alert('海報匯出時發生問題，可能是外部照片存在跨域限制。請嘗試上傳本機照片後再下載！');
+    alert('海報匯出失敗：' + (err.message || err));
   } finally {
     posterWrapper.style.transform = originalTransform;
     loadingOverlay.style.display = 'none';
   }
+}
+
+function fallbackDataUrl(canvas, fileName) {
+  const link = document.createElement('a');
+  link.download = fileName;
+  link.href = canvas.toDataURL('image/png', 1.0);
+  link.click();
 }
 
 function saveState() {
@@ -602,9 +486,17 @@ function loadSavedState() {
     const saved = localStorage.getItem('club_poster_data');
     if (saved) {
       const parsed = JSON.parse(saved);
+      // 清除舊格式，使用全新升級的橫版大圖排版
+      if (!parsed.photoUrl || (parsed.photos && parsed.photos.length > 0)) {
+        localStorage.removeItem('club_poster_data');
+        state = { ...defaultData };
+        return;
+      }
       state = { ...defaultData, ...parsed };
+      return;
     }
   } catch (e) {
-    console.warn('讀取暫存失敗，使用預設值');
+    console.warn('讀取暫存失敗');
   }
+  state = { ...defaultData };
 }

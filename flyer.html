@@ -1,0 +1,796 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>北科健美健身社 | 招新宣傳傳單產生器 (Flyer / DM)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #b91c1c;
+      --bg: #090d16;
+      --panel: #111827;
+      --border: #1f2937;
+      --text: #f9fafb;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+    header {
+      height: 56px;
+      background: #030712;
+      border-bottom: 1px solid var(--border);
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-shrink: 0;
+      z-index: 50;
+    }
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 1.1rem;
+      font-weight: 800;
+    }
+    .badge {
+      background: #dc2626;
+      color: #fff;
+      font-size: 0.72rem;
+      padding: 2px 10px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      padding: 8px 14px;
+      border-radius: 6px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #ea580c, #f59e0b);
+      color: white;
+      box-shadow: 0 4px 14px rgba(234, 88, 12, 0.4);
+    }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-secondary {
+      background: #1f2937;
+      color: #e5e7eb;
+      border: 1px solid #374151;
+    }
+    .btn-secondary:hover { background: #2d3748; }
+
+    /* 主區域 */
+    .main-layout {
+      display: flex;
+      flex: 1;
+      overflow: hidden;
+    }
+
+    /* 左側編輯欄 */
+    .sidebar {
+      width: 420px;
+      background: var(--panel);
+      border-right: 1px solid var(--border);
+      overflow-y: auto;
+      padding: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      flex-shrink: 0;
+    }
+    .card {
+      background: #161f30;
+      border: 1px solid #28374d;
+      border-radius: 8px;
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .card-title {
+      font-size: 0.9rem;
+      font-weight: 800;
+      color: #f1f5f9;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+    label {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: #cbd5e1;
+    }
+    input[type="text"], textarea, select {
+      width: 100%;
+      padding: 7px 10px;
+      background: #090e17;
+      border: 1px solid #28374d;
+      border-radius: 6px;
+      color: #f8fafc;
+      font-size: 0.85rem;
+      font-family: inherit;
+    }
+    input:focus, textarea:focus, select:focus {
+      outline: none;
+      border-color: #ef4444;
+    }
+    textarea { resize: vertical; min-height: 48px; }
+
+    /* 右側預覽區 */
+    .preview-pane {
+      flex: 1;
+      background: radial-gradient(circle at center, #1f2937 0%, #030712 100%);
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 20px 20px 60px;
+      position: relative;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      background: rgba(3, 7, 18, 0.85);
+      backdrop-filter: blur(12px);
+      padding: 6px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+    }
+    .toolbar-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.82rem;
+      color: #94a3b8;
+    }
+
+    .flyer-wrapper {
+      transform-origin: top center;
+      transition: transform 0.15s ease;
+    }
+
+    /* ===================================================
+       傳單實體本體 (標準 A5 比例：寬 620px, 高 877px, 1:1.414)
+       =================================================== */
+    .flyer {
+      width: 620px;
+      height: 877px;
+      background: #ffffff !important;
+      color: #0f172a;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.85);
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 22px 24px 20px;
+      user-select: none;
+      box-sizing: border-box;
+      border-radius: 0;
+    }
+
+    /* 頂部 Header */
+    .flyer-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #fee2e2;
+      padding-bottom: 8px;
+    }
+    .flyer-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .flyer-logo {
+      width: 46px;
+      height: 46px;
+      border-radius: 8px;
+      border: 1.5px solid #ef4444;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+    .flyer-logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      padding: 2px;
+    }
+    .flyer-club-name {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: #b91c1c;
+      line-height: 1.1;
+    }
+    .flyer-club-sub {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #475569;
+    }
+    .flyer-badge-tag {
+      background: #fee2e2;
+      color: #b91c1c;
+      font-size: 0.72rem;
+      font-weight: 800;
+      padding: 3px 8px;
+      border-radius: 999px;
+      border: 1px solid #fca5a5;
+    }
+
+    /* 主標題區 */
+    .flyer-hero {
+      text-align: center;
+      margin-top: 6px;
+    }
+    .flyer-tagline {
+      display: inline-block;
+      font-size: 0.74rem;
+      font-weight: 900;
+      letter-spacing: 1px;
+      color: #dc2626;
+      background: #fee2e2;
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin-bottom: 3px;
+    }
+    .flyer-title {
+      font-size: 1.75rem;
+      font-weight: 900;
+      color: #b91c1c;
+      line-height: 1.15;
+      letter-spacing: -0.2px;
+    }
+    .flyer-theme {
+      font-size: 0.88rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin-top: 2px;
+    }
+
+    /* 活動照片 */
+    .flyer-photo {
+      width: 100%;
+      height: 175px;
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      border: 2px solid #cbd5e1;
+      margin-top: 6px;
+      background: #f1f5f9;
+      flex-shrink: 0;
+    }
+    .flyer-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 25%;
+      display: block;
+    }
+    .flyer-photo-caption {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: linear-gradient(transparent, rgba(15, 23, 42, 0.85));
+      color: #fff;
+      font-size: 0.72rem;
+      font-weight: 700;
+      text-align: center;
+      padding: 4px 6px 3px;
+    }
+
+    /* 憑單領取好康橫幅 */
+    .flyer-coupon {
+      background: linear-gradient(90deg, #fef3c7 0%, #fee2e2 100%);
+      border: 2px dashed #f59e0b;
+      border-radius: 8px;
+      padding: 6px 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 6px;
+    }
+    .coupon-icon { font-size: 1.4rem; flex-shrink: 0; }
+    .coupon-main {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #b45309;
+      line-height: 1.2;
+    }
+    .coupon-sub {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #78350f;
+    }
+
+    /* 核心雙欄 */
+    .flyer-mid {
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      gap: 10px;
+      margin-top: 6px;
+      flex: 1;
+      min-height: 0;
+    }
+    .flyer-box {
+      background: #ffffff;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .flyer-box-title {
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: #b91c1c;
+      border-bottom: 1.5px solid #fee2e2;
+      padding-bottom: 3px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .flyer-info-line {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      font-size: 0.75rem;
+      line-height: 1.35;
+    }
+    .flyer-info-bold {
+      font-weight: 800;
+      color: #334155;
+      flex-shrink: 0;
+    }
+    .flyer-chips {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      margin-top: 2px;
+    }
+    .flyer-chip {
+      background: #f8fafc;
+      color: #1e293b;
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 4px;
+      border: 1px solid #e2e8f0;
+    }
+
+    /* 握力器卡片 */
+    .flyer-grip {
+      background: linear-gradient(145deg, #881337 0%, #4c0519 100%);
+      color: #fff;
+      border: 1.5px solid #fbbf24;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 4px;
+    }
+    .flyer-grip-title {
+      font-size: 0.85rem;
+      font-weight: 900;
+      color: #fef08a;
+    }
+    .flyer-grip-desc {
+      font-size: 0.68rem;
+      color: #fecdd3;
+      line-height: 1.3;
+    }
+    .flyer-grip-tiers {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+    }
+    .flyer-grip-tier {
+      background: rgba(0, 0, 0, 0.25);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 0.65rem;
+      line-height: 1.25;
+    }
+    .tier-cond { color: #fecdd3; font-weight: 800; }
+    .tier-gift { color: #fef08a; font-weight: 700; }
+
+    /* 底部行動呼籲與 QR Code */
+    .flyer-footer {
+      border-top: 2px solid #fee2e2;
+      padding-top: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 6px;
+    }
+    .footer-left {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
+    .footer-badge {
+      display: inline-block;
+      align-self: flex-start;
+      background: #ef4444;
+      color: #fff;
+      font-size: 0.65rem;
+      font-weight: 900;
+      padding: 1px 6px;
+      border-radius: 999px;
+    }
+    .footer-title {
+      font-size: 0.98rem;
+      font-weight: 900;
+      color: #0f172a;
+    }
+    .footer-sub {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #64748b;
+      line-height: 1.25;
+    }
+    .footer-qr-box {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2px;
+      flex-shrink: 0;
+      border: 1px solid #cbd5e1;
+      padding: 3px;
+      border-radius: 6px;
+      background: #fff;
+    }
+    .footer-qr-box img {
+      width: 68px;
+      height: 68px;
+      object-fit: contain;
+      display: block;
+    }
+    .footer-qr-label {
+      font-size: 0.6rem;
+      font-weight: 800;
+      color: #0284c7;
+    }
+
+    /* 列印樣式 */
+    @media print {
+      body { background: transparent !important; color: #000 !important; }
+      header, .sidebar, .toolbar { display: none !important; }
+      .main-layout, .preview-pane { padding: 0 !important; margin: 0 !important; display: block !important; }
+      .flyer-wrapper { transform: none !important; }
+      .flyer {
+        width: 148mm !important;
+        height: 210mm !important;
+        box-shadow: none !important;
+        padding: 8mm !important;
+        page-break-after: always !important;
+      }
+      @page { size: A5 portrait; margin: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="brand-wrap">
+      <span>📄 北科健美社・宣傳傳單產生器 (Flyer)</span>
+      <span class="badge">A5 標準傳單・支援 300 DPI 印刷級下載</span>
+    </div>
+    <div class="header-actions">
+      <a href="index.html" class="btn btn-secondary">🎨 回到海報</a>
+      <a href="cards.html" class="btn btn-secondary">🏷️ 攤位大字卡</a>
+      <button class="btn btn-secondary" onclick="window.print()">🖨️ 瀏覽器列印 (A5)</button>
+      <button class="btn btn-primary" id="btn-download">📥 一鍵下載高畫質傳單 (PNG)</button>
+    </div>
+  </header>
+
+  <div class="main-layout">
+
+    <!-- 左側表單編輯 -->
+    <aside class="sidebar">
+      <div class="card">
+        <div class="card-title">📌 傳單活動資訊</div>
+        <div class="form-group">
+          <label>活動主標題</label>
+          <input type="text" id="in-title" value="116學年度 健美社新生茶會＆社課體驗">
+        </div>
+        <div class="form-group">
+          <label>主題號召口號</label>
+          <input type="text" id="in-theme" value="我們不只練大肌肌，生活也超精采！">
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>活動時間</label>
+            <input type="text" id="in-date" value="9 月末（鎖定 IG 最新公告！）">
+          </div>
+          <div class="form-group">
+            <label>活動地點</label>
+            <input type="text" id="in-loc" value="學校健身房／社團辦公室">
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🧋 憑單好康福利</div>
+        <div class="form-group">
+          <label>好康標語</label>
+          <input type="text" id="in-coupon" value="追蹤 IG 出示本傳單：免費領麥香奶茶 / 高蛋白！">
+        </div>
+        <div class="form-group">
+          <label>加碼小字</label>
+          <input type="text" id="in-coupon-sub" value="★ 現場挑戰握力器，不限成績直接蓋社博集章！ ★">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">💪 握力器挑戰簡介</div>
+        <div class="form-group">
+          <label>挑戰標題</label>
+          <input type="text" id="in-grip-title" value="【大力士握力大挑戰 ⚡ 測爆發力】">
+        </div>
+        <div class="form-group">
+          <label>門檻 1 (金剛神力級)</label>
+          <input type="text" id="in-t1" value="🦍 男 > 50kg / 女 > 30kg ➜ 榮譽巨巨，小點心任選！">
+        </div>
+        <div class="form-group">
+          <label>門檻 2 (潛力新手級)</label>
+          <input type="text" id="in-t2" value="🐣 只要敢握就給獎 ➜ 社博集章直接蓋，點心帶走！">
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">📲 底部行動呼籲</div>
+        <div class="form-group">
+          <label>行動標題</label>
+          <input type="text" id="in-act-title" value="立即追蹤官方 IG：@NTUT_BBFC！">
+        </div>
+        <div class="form-group">
+          <label>行動副說明</label>
+          <input type="text" id="in-act-desc" value="鎖定最新社課、幹部帶練與迎新茶會第一手資訊！">
+        </div>
+      </div>
+    </aside>
+
+    <!-- 右側預覽 -->
+    <main class="preview-pane">
+      <div class="toolbar">
+        <div class="toolbar-item">
+          <span>縮放比例：</span>
+          <button class="btn btn-secondary" style="padding:2px 8px;" onclick="zoom(-0.1)">➖</button>
+          <span id="zoomText" style="font-weight:700;">85%</span>
+          <button class="btn btn-secondary" style="padding:2px 8px;" onclick="zoom(0.1)">➕</button>
+          <button class="btn btn-secondary" style="padding:2px 8px;" onclick="fitZoom()">適應視窗</button>
+        </div>
+      </div>
+
+      <div class="flyer-wrapper" id="flyerWrap">
+        
+        <!-- 傳單實體 (A5 直式) -->
+        <div class="flyer" id="flyerCanvas">
+          
+          <!-- 頂部社徽 -->
+          <header class="flyer-header">
+            <div class="flyer-brand">
+              <div class="flyer-logo">
+                <img id="flyer-logo-img" src="" alt="NTUT BBFC Logo">
+              </div>
+              <div>
+                <div class="flyer-club-name">北科健美健身社</div>
+                <div class="flyer-club-sub">NTUT Bodybuilding & Fitness Club (NTUT BBFC)</div>
+              </div>
+            </div>
+            <div class="flyer-badge-tag">社博迎新 DM</div>
+          </header>
+
+          <!-- 主視覺標題 -->
+          <div class="flyer-hero">
+            <div class="flyer-tagline">★ WELCOME PARTY & TRIAL ★</div>
+            <h1 class="flyer-title" id="p-title">116學年度 健美社新生茶會＆社課體驗</h1>
+            <p class="flyer-theme" id="p-theme">我們不只練大肌肌，生活也超精采！</p>
+          </div>
+
+          <!-- 熱血社員合照 -->
+          <div class="flyer-photo">
+            <img id="flyer-photo-img" src="" alt="社員熱血合照">
+            <div class="flyer-photo-caption">【日常帶練】我們不只練大肌肌，生活也超精采！</div>
+          </div>
+
+          <!-- 憑單好康優惠券橫幅 -->
+          <div class="flyer-coupon">
+            <span class="coupon-icon">🧋</span>
+            <div>
+              <div class="coupon-main" id="p-coupon">追蹤 IG 出示本傳單：免費領麥香奶茶 / 高蛋白！</div>
+              <div class="coupon-sub" id="p-coupon-sub">★ 現場挑戰握力器，不限成績直接幫你蓋社博集章！ ★</div>
+            </div>
+          </div>
+
+          <!-- 核心雙欄：左邊茶會時程、右邊握力器挑戰 -->
+          <div class="flyer-mid">
+            
+            <div class="flyer-box">
+              <div class="flyer-box-title">🗓️ 茶會體驗亮點</div>
+              <div class="flyer-info-line">
+                <span class="flyer-info-bold">⏰ 時間：</span>
+                <span id="p-date">9 月末（鎖定 IG 最新公告！）</span>
+              </div>
+              <div class="flyer-info-line">
+                <span class="flyer-info-bold">📍 地點：</span>
+                <span id="p-loc">學校健身房／社團辦公室</span>
+              </div>
+              <div class="flyer-chips">
+                <span class="flyer-chip">✨ 零基礎器材操作指南</span>
+                <span class="flyer-chip">✨ 新手增肌減脂飲食秘訣</span>
+                <span class="flyer-chip">✨ 學長姐手把手陪伴帶練</span>
+              </div>
+            </div>
+
+            <div class="flyer-grip">
+              <div class="flyer-grip-title" id="p-grip-title">【大力士握力大挑戰 ⚡ 測爆發力】</div>
+              <div class="flyer-grip-desc">現場握一下，直接蓋章累積抽大獎！</div>
+              <div class="flyer-grip-tiers">
+                <div class="flyer-grip-tier" id="p-t1">
+                  <span class="tier-cond">🦍 金剛神力級（男>50/女>30kg）：</span>
+                  <span class="tier-gift">小點心任選！</span>
+                </div>
+                <div class="flyer-grip-tier" id="p-t2">
+                  <span class="tier-cond">🐣 潛力新手級（敢握就有）：</span>
+                  <span class="tier-gift">能量點心帶走！</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- 底部行動呼籲與 QR Code -->
+          <footer class="flyer-footer">
+            <div class="footer-left">
+              <span class="footer-badge">社博限定・出示換好禮</span>
+              <div class="footer-title" id="p-act-title">立即追蹤官方 IG：@NTUT_BBFC！</div>
+              <div class="footer-sub" id="p-act-desc">鎖定最新社課、幹部帶練與迎新茶會第一手資訊！</div>
+            </div>
+            <div class="footer-qr-box">
+              <img id="flyer-qr-img" src="" alt="官方 IG QR Code">
+              <span class="footer-qr-label">追蹤 IG 換好禮</span>
+            </div>
+          </footer>
+
+        </div>
+
+      </div>
+    </main>
+
+  </div>
+
+  <script src="js/default_assets.js"></script>
+  <script src="js/html2canvas.min.js"></script>
+  <script>
+    let currentZoom = 0.85;
+    const flyerWrap = document.getElementById('flyerWrap');
+    const flyer = document.getElementById('flyerCanvas');
+
+    function setZoom(z) {
+      currentZoom = Math.round(z * 100) / 100;
+      flyerWrap.style.transform = `scale(${currentZoom})`;
+      document.getElementById('zoomText').textContent = `${Math.round(currentZoom * 100)}%`;
+    }
+    function zoom(delta) { setZoom(Math.max(0.4, currentZoom + delta)); }
+    function fitZoom() {
+      const pane = document.querySelector('.preview-pane');
+      const scaleH = (pane.clientHeight - 100) / 877;
+      setZoom(Math.min(1.0, Math.max(0.4, scaleH)));
+    }
+
+    // 雙向綁定
+    const bindList = [
+      ['in-title', 'p-title'],
+      ['in-theme', 'p-theme'],
+      ['in-date', 'p-date'],
+      ['in-loc', 'p-loc'],
+      ['in-coupon', 'p-coupon'],
+      ['in-coupon-sub', 'p-coupon-sub'],
+      ['in-grip-title', 'p-grip-title'],
+      ['in-t1', 'p-t1'],
+      ['in-t2', 'p-t2'],
+      ['in-act-title', 'p-act-title'],
+      ['in-act-desc', 'p-act-desc']
+    ];
+    bindList.forEach(([inId, pId]) => {
+      const input = document.getElementById(inId);
+      const target = document.getElementById(pId);
+      if (input && target) {
+        input.addEventListener('input', () => { target.textContent = input.value; });
+      }
+    });
+
+    // 下載 300 DPI PNG
+    document.getElementById('btn-download').addEventListener('click', async () => {
+      const origTransform = flyerWrap.style.transform;
+      flyerWrap.style.transform = 'none';
+
+      try {
+        const canvas = await html2canvas(flyer, {
+          scale: 3.5, // 達到 300 DPI 超高清晰度 (約 2170 x 3070 px)
+          useCORS: true,
+          allowTaint: false,
+          backgroundColor: '#ffffff',
+          width: flyer.offsetWidth,
+          height: flyer.offsetHeight
+        });
+
+        canvas.toBlob((blob) => {
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.download = '北科健美健身社_社博宣傳傳單_A5.png';
+          a.href = url;
+          a.click();
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
+        }, 'image/png');
+      } catch (err) {
+        alert('傳單匯出失敗：' + err);
+      } finally {
+        flyerWrap.style.transform = origTransform;
+      }
+    });
+
+        // 載入安全同源 Base64 圖片 (徹底消除 file:/// 下的 SecurityError)
+    const logoSrc = (typeof DEFAULT_ASSETS !== 'undefined') ? DEFAULT_ASSETS.logo : 'assets/ntut_logo.png';
+    const photoSrc = (typeof DEFAULT_ASSETS !== 'undefined') ? DEFAULT_ASSETS.clubPhoto : 'assets/club_photo1.jpg';
+    const qrSrc = (typeof DEFAULT_ASSETS !== 'undefined') ? DEFAULT_ASSETS.igQr : 'assets/ig_qr.png';
+
+    document.getElementById('flyer-logo-img').src = logoSrc;
+    document.getElementById('flyer-photo-img').src = photoSrc;
+    document.getElementById('flyer-qr-img').src = qrSrc;
+    fitZoom();
+    window.addEventListener('resize', fitZoom);
+  </script>
+</body>
+</html>

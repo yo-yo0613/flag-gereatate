@@ -1,0 +1,459 @@
+﻿<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>攤位大字卡列印產生器 | 北科健美健身社 (NTUT BBFC)</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #b91c1c;
+      --bg: #0b0f19;
+      --panel: #161f30;
+      --text: #f8fafc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      background: #030712;
+      border-bottom: 1px solid #1f2937;
+      padding: 12px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 50;
+    }
+    .header-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .header-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+    }
+    .badge {
+      background: #dc2626;
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      padding: 8px 16px;
+      border-radius: 8px;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, #ef4444, #dc2626);
+      color: white;
+      box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+    }
+    .btn-primary:hover { transform: translateY(-1px); }
+    .btn-secondary {
+      background: #1f2937;
+      color: #e2e8f0;
+      border: 1px solid #374151;
+    }
+    .btn-secondary:hover { background: #2d3748; }
+
+    /* 控制列 */
+    .controls-bar {
+      background: var(--panel);
+      padding: 14px 24px;
+      border-bottom: 1px solid #233044;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .control-group {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 0.88rem;
+    }
+    input[type="text"] {
+      padding: 6px 12px;
+      background: #090d16;
+      border: 1px solid #334155;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 0.95rem;
+      letter-spacing: 4px;
+      font-weight: 800;
+      width: 220px;
+      text-align: center;
+    }
+    select {
+      padding: 6px 12px;
+      background: #090d16;
+      border: 1px solid #334155;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+
+    /* 預覽工作區 */
+    .workspace {
+      flex: 1;
+      padding: 30px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 30px;
+      overflow-y: auto;
+    }
+    .sheets-container {
+      display: flex;
+      flex-direction: column;
+      gap: 30px;
+    }
+
+    /* A4 橫向紙張模型 (標準比例 297 : 210 ≈ 1.414) */
+    .a4-sheet {
+      width: 900px;
+      height: 636px;
+      background: #ffffff;
+      color: #0f172a;
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
+      position: relative;
+      display: flex;
+      padding: 20px;
+      justify-content: space-between;
+      box-sizing: border-box;
+      user-select: none;
+    }
+
+    /* 中間虛線裁切標線 */
+    .cut-line {
+      position: absolute;
+      top: 15px;
+      bottom: 15px;
+      left: 50%;
+      width: 2px;
+      border-left: 2px dashed #94a3b8;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      pointer-events: none;
+    }
+    .cut-label {
+      background: #f1f5f9;
+      color: #64748b;
+      font-size: 11px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      border: 1px solid #cbd5e1;
+      transform: rotate(-90deg);
+      white-space: nowrap;
+    }
+
+    /* 單個 A5 字卡容器 (每個佔據橫向 A4 的一半) */
+    .card-box {
+      width: 416px;
+      height: 100%;
+      background: #ffffff;
+      border: 8px solid #b91c1c;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 14px;
+      position: relative;
+      box-sizing: border-box;
+    }
+    .card-inner-frame {
+      position: absolute;
+      inset: 4px;
+      border: 1.5px solid #ef4444;
+      border-radius: 14px;
+      pointer-events: none;
+    }
+    .card-top-tag {
+      font-size: 15px;
+      font-weight: 900;
+      color: #ef4444;
+      letter-spacing: 2px;
+    }
+    .card-big-char {
+      font-size: 260px;
+      font-weight: 900;
+      line-height: 1;
+      color: #0f172a;
+      text-align: center;
+      margin-top: -10px;
+      font-family: 'Noto Sans TC', system-ui, sans-serif;
+    }
+    .card-bot-tag {
+      font-size: 16px;
+      font-weight: 900;
+      color: #1e293b;
+      letter-spacing: 3px;
+    }
+
+    /* QR 宣傳牌專用卡片 */
+    .qr-card-box {
+      width: 416px;
+      height: 100%;
+      background: #ffffff;
+      border: 8px solid #b91c1c;
+      border-radius: 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 14px;
+      position: relative;
+      box-sizing: border-box;
+      text-align: center;
+    }
+    .qr-card-title {
+      font-size: 26px;
+      font-weight: 900;
+      color: #b91c1c;
+      line-height: 1.2;
+    }
+    .qr-card-handle {
+      font-size: 20px;
+      font-weight: 800;
+      color: #1e293b;
+      margin-top: 2px;
+    }
+    .qr-img-wrap {
+      width: 250px;
+      height: 250px;
+      background: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .qr-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+    .qr-card-perks {
+      background: #fef2f2;
+      border: 1.5px solid #fca5a5;
+      border-radius: 10px;
+      padding: 8px 12px;
+      width: 92%;
+    }
+    .perks-main {
+      font-size: 18px;
+      font-weight: 900;
+      color: #b91c1c;
+    }
+    .perks-sub {
+      font-size: 14px;
+      font-weight: 700;
+      color: #78350f;
+      margin-top: 2px;
+    }
+
+    /* 黑白省錢列印風格 */
+    body.theme-bw .card-box,
+    body.theme-bw .qr-card-box {
+      border-color: #0f172a;
+    }
+    body.theme-bw .card-inner-frame {
+      border-color: #64748b;
+    }
+    body.theme-bw .card-top-tag,
+    body.theme-bw .qr-card-title,
+    body.theme-bw .perks-main {
+      color: #0f172a;
+    }
+    body.theme-bw .qr-card-perks {
+      background: #f1f5f9;
+      border-color: #cbd5e1;
+    }
+
+    /* 列印專用 CSS */
+    @media print {
+      body {
+        background: transparent !important;
+        color: #000 !important;
+      }
+      header, .controls-bar, .app-hint {
+        display: none !important;
+      }
+      .workspace {
+        padding: 0 !important;
+        margin: 0 !important;
+        gap: 0 !important;
+        display: block !important;
+      }
+      .sheets-container {
+        gap: 0 !important;
+      }
+      .a4-sheet {
+        width: 100vw !important;
+        height: 100vh !important;
+        max-width: 100% !important;
+        max-height: 100% !important;
+        page-break-after: always !important;
+        break-after: page !important;
+        box-shadow: none !important;
+        padding: 10mm !important;
+      }
+      @page {
+        size: A4 landscape;
+        margin: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-left">
+      <span class="header-title">🏷️ 北科健美社・攤位大字卡列印 (A4對半 / A5)</span>
+      <span class="badge">A4 橫向 1 頁印 2 字・對半剪裁即用</span>
+    </div>
+    <div class="header-actions">
+      <a href="index.html" class="btn btn-secondary">🎨 回到海報生成器</a>
+      <button class="btn btn-primary" onclick="window.print()">🖨️ 瀏覽器一鍵列印 (A4 橫向)</button>
+    </div>
+  </header>
+
+  <div class="controls-bar">
+    <div class="control-group">
+      <label for="input-chars">自訂字卡文字：</label>
+      <input type="text" id="input-chars" value="健 身 健 美 社" maxlength="10">
+    </div>
+
+    <div class="control-group">
+      <label for="select-card-theme">列印色彩風格：</label>
+      <select id="select-card-theme" onchange="toggleTheme(this.value)">
+        <option value="theme-color" selected>🔥 經典熱血北科紅 (彩色版)</option>
+        <option value="theme-bw">🖤 極簡黑白省錢版 (超商黑白 1 張 2 元)</option>
+      </select>
+    </div>
+
+    <div class="control-group">
+      <span style="font-size: 0.8rem; color: #94a3b8;">
+        💡 提示：按上方「一鍵列印」後，在列印設定將方向設為<b>「橫向」</b>，印出後沿中央虛線對半剪開即可！
+      </span>
+    </div>
+  </div>
+
+  <main class="workspace">
+    <div class="sheets-container" id="sheetsContainer">
+      <!-- 動態產生 A4 橫向拼版 -->
+    </div>
+  </main>
+
+  <script src="js/default_assets.js"></script>
+  <script>
+    const inputChars = document.getElementById('input-chars');
+    const sheetsContainer = document.getElementById('sheetsContainer');
+    const qrImgSrc = (typeof DEFAULT_ASSETS !== 'undefined') ? DEFAULT_ASSETS.igQr : 'assets/ig_qr.png';
+
+    function renderSheets() {
+      const rawText = inputChars.value.replace(/\s+/g, '');
+      const chars = rawText.split('');
+      sheetsContainer.innerHTML = '';
+
+      // 每 2 個字排一張 A4 橫向
+      for (let i = 0; i < chars.length; i += 2) {
+        const c1 = chars[i];
+        const c2 = chars[i + 1];
+
+        const sheet = document.createElement('div');
+        sheet.className = 'a4-sheet';
+
+        // 剪裁線
+        sheet.innerHTML = `
+          <div class="cut-line">
+            <span class="cut-label">✂️ 對半裁切線 (A5)</span>
+          </div>
+        `;
+
+        // 左半邊字卡
+        sheet.appendChild(createCharBox(c1));
+
+        // 右半邊字卡 (如果有第 2 個字就放字，如果沒有就放中央 QR 宣傳牌！)
+        if (c2) {
+          sheet.appendChild(createCharBox(c2));
+        } else {
+          sheet.appendChild(createQrCard());
+        }
+
+        sheetsContainer.appendChild(sheet);
+      }
+    }
+
+    function createCharBox(char) {
+      const box = document.createElement('div');
+      box.className = 'card-box';
+      box.innerHTML = `
+        <div class="card-inner-frame"></div>
+        <div class="card-top-tag">★ NTUT BBFC ★</div>
+        <div class="card-big-char">${char || ''}</div>
+        <div class="card-bot-tag">北科健美健身社</div>
+      `;
+      return box;
+    }
+
+    function createQrCard() {
+      const box = document.createElement('div');
+      box.className = 'qr-card-box';
+      box.innerHTML = `
+        <div class="card-inner-frame"></div>
+        <div>
+          <div class="qr-card-title">掃碼追蹤官方 IG</div>
+          <div class="qr-card-handle">@NTUT_BBFC</div>
+        </div>
+        <div class="qr-img-wrap">
+          <img src="${qrImgSrc}" alt="官方 IG QR Code">
+        </div>
+        <div class="qr-card-perks">
+          <div class="perks-main">🎁 現場出示追蹤</div>
+          <div class="perks-sub">免費領麥香奶茶 / 高蛋白！</div>
+        </div>
+      `;
+      return box;
+    }
+
+    function toggleTheme(theme) {
+      if (theme === 'theme-bw') {
+        document.body.classList.add('theme-bw');
+      } else {
+        document.body.classList.remove('theme-bw');
+      }
+    }
+
+    inputChars.addEventListener('input', renderSheets);
+    renderSheets();
+  </script>
+</body>
+</html>

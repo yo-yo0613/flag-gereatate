@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
@@ -37,11 +37,43 @@
     .header-left {
       display: flex;
       align-items: center;
-      gap: 12px;
+      gap: 16px;
     }
     .header-title {
       font-size: 1.15rem;
       font-weight: 800;
+    }
+    .nav-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-link {
+      color: #94a3b8;
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 5px 12px;
+      border-radius: 6px;
+      background: #111827;
+      border: 1px solid #1f2937;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-link:hover {
+      color: #ffffff;
+      background: #1f2937;
+      border-color: #374151;
+      transform: translateY(-1px);
+    }
+    .nav-link.active {
+      color: #ffffff;
+      background: linear-gradient(135deg, #b91c1c, #dc2626);
+      border-color: #ef4444;
+      box-shadow: 0 2px 8px rgba(185, 28, 28, 0.4);
     }
     .badge {
       background: #dc2626;
@@ -336,11 +368,15 @@
 
   <header>
     <div class="header-left">
-      <span class="header-title">🏷️ 北科健美社・攤位大字卡列印 (A4對半 / A5)</span>
-      <span class="badge">A4 橫向 1 頁印 2 字・對半剪裁即用</span>
+      <span class="header-title">🏋️‍♂️ 北科健美健身社</span>
+      <nav class="nav-tools" aria-label="生成器切換">
+        <a href="index.html" class="nav-link" title="海報生成器 (A4/A3/B2/社群)">🎨 海報生成器</a>
+        <a href="cards.html" class="nav-link active" title="攤位大字卡 (A4對半/A5)">🏷️ 攤位大字卡</a>
+        <a href="flyer.html" class="nav-link" title="招新宣傳傳單 (A5/雙拼)">📄 宣傳傳單</a>
+        <a href="贊助合作提案企劃書.html" class="nav-link" title="品牌贊助合作企劃書 (PDF)">💼 贊助企劃書</a>
+      </nav>
     </div>
     <div class="header-actions">
-      <a href="index.html" class="btn btn-secondary">🎨 回到海報生成器</a>
       <button class="btn btn-primary" onclick="window.print()">🖨️ 瀏覽器一鍵列印 (A4 橫向)</button>
     </div>
   </header>

@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>國立臺北科技大學健身健美社 | 品牌贊助合作提案企劃書</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #b91c1c;
+      --primary-light: #fef2f2;
+      --text-main: #0f172a;
+      --text-muted: #475569;
+      --border: #e2e8f0;
+      --bg: #f8fafc;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Noto Sans TC", "Microsoft JhengHei", sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      line-height: 1.6;
+      padding: 30px 15px;
+    }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      background: #ffffff;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+      padding: 45px 55px;
+    }
+    
+    /* 頂部操作列與列印提示 */
+    .toolbar-wrapper {
+      margin-bottom: 25px;
+    }
+    .toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+    .nav-tools {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .nav-link {
+      color: #64748b;
+      text-decoration: none;
+      font-size: 0.84rem;
+      font-weight: 700;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+    }
+    .nav-link:hover {
+      color: #0f172a;
+      background: #e2e8f0;
+      border-color: #94a3b8;
+      transform: translateY(-1px);
+    }
+    .nav-link.active {
+      color: #ffffff;
+      background: linear-gradient(135deg, #b91c1c, #dc2626);
+      border-color: #ef4444;
+      box-shadow: 0 2px 8px rgba(185, 28, 28, 0.4);
+    }
+    .print-tip {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 8px;
+      padding: 10px 14px;
+      font-size: 0.85rem;
+      color: #1e40af;
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 0.9rem;
+      font-weight: 700;
+      padding: 9px 18px;
+      border-radius: 6px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      border: none;
+    }
+    .btn-pdf {
+      background: #b91c1c;
+      color: white;
+    }
+    .btn-pdf:hover { background: #991b1b; }
+    .btn-back {
+      background: #f1f5f9;
+      color: #334155;
+      border: 1px solid #cbd5e1;
+    }
+    .btn-back:hover { background: #e2e8f0; }
+
+    .doc-header {
+      border-bottom: 2px solid var(--primary);
+      padding-bottom: 20px;
+      margin-bottom: 30px;
+      position: relative;
+    }
+    .badge {
+      display: inline-block;
+      background: var(--primary-light);
+      color: var(--primary);
+      font-size: 0.8rem;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 999px;
+      border: 1px solid #fecaca;
+      margin-bottom: 10px;
+    }
+    h1 {
+      font-size: 1.85rem;
+      font-weight: 900;
+      color: #0f172a;
+      line-height: 1.3;
+    }
+    .subtitle {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+    .meta-box {
+      margin-top: 18px;
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 14px 18px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      font-size: 0.88rem;
+    }
+    .meta-item strong { color: #1e293b; }
+
+    h2 {
+      font-size: 1.35rem;
+      font-weight: 900;
+      color: var(--primary);
+      border-left: 4px solid var(--primary);
+      padding-left: 12px;
+      margin: 35px 0 16px;
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+    h3 {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: #1e293b;
+      margin: 18px 0 8px;
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+    p, li {
+      font-size: 0.95rem;
+      color: #334155;
+    }
+    ul, ol { padding-left: 22px; margin-bottom: 14px; }
+    li { margin-bottom: 6px; }
+
+    /* 表格 */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 0.88rem;
+    }
+    th, td {
+      border: 1px solid #cbd5e1;
+      padding: 12px 14px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 800;
+    }
+    td strong { color: #0f172a; }
+
+    /* 結構化甘特時程卡片（解決純文字 ASCII 黏在一起跑版問題） */
+    .timeline-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+      margin: 20px 0;
+    }
+    .timeline-step {
+      background: #f8fafc;
+      border: 1.5px solid #e2e8f0;
+      border-top: 4px solid #b91c1c;
+      border-radius: 8px;
+      padding: 14px 12px;
+      display: flex;
+      flex-direction: column;
+    }
+    .timeline-step-tag {
+      font-size: 0.78rem;
+      font-weight: 900;
+      color: #b91c1c;
+      background: #fef2f2;
+      display: inline-block;
+      align-self: flex-start;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-bottom: 6px;
+    }
+    .timeline-step-name {
+      font-size: 0.95rem;
+      font-weight: 800;
+      color: #0f172a;
+      margin-bottom: 10px;
+      border-bottom: 1px dashed #cbd5e1;
+      padding-bottom: 6px;
+    }
+    .timeline-step-ul {
+      list-style: none;
+      padding-left: 0;
+      margin-bottom: 0;
+      font-size: 0.82rem;
+      color: #475569;
+    }
+    .timeline-step-ul li {
+      position: relative;
+      padding-left: 14px;
+      margin-bottom: 6px;
+      line-height: 1.4;
+    }
+    .timeline-step-ul li::before {
+      content: "•";
+      position: absolute;
+      left: 2px;
+      color: #b91c1c;
+      font-weight: bold;
+    }
+
+    /* A/B 題目卡片 */
+    .qa-box {
+      background: #fdf2f8;
+      border: 1.5px solid #fbcfe8;
+      border-radius: 10px;
+      padding: 22px 24px;
+      margin-top: 20px;
+    }
+    .qa-intro {
+      font-size: 0.92rem;
+      font-weight: 700;
+      color: #831843;
+      margin-bottom: 14px;
+      line-height: 1.5;
+    }
+    .qa-item {
+      background: #ffffff;
+      border: 1px solid #f472b6;
+      border-radius: 8px;
+      padding: 14px 18px;
+      margin-bottom: 14px;
+    }
+    .qa-item:last-child { margin-bottom: 0; }
+    .qa-title {
+      font-size: 0.95rem;
+      font-weight: 900;
+      color: #9d174d;
+      margin-bottom: 6px;
+    }
+    .qa-opt {
+      font-size: 0.88rem;
+      color: #374151;
+      margin-bottom: 6px;
+      line-height: 1.45;
+    }
+    .qa-opt:last-child { margin-bottom: 0; }
+    .qa-opt strong { color: #831843; }
+
+    /* 明確分頁斷點控制 */
+    .page-break {
+      page-break-before: always;
+      break-before: page;
+    }
+
+    @media print {
+      body { background: transparent; padding: 0; }
+      .container { border: none; box-shadow: none; padding: 0; max-width: 100%; }
+      .toolbar-wrapper { display: none; }
+      h2, h3 { page-break-after: avoid; break-after: avoid; }
+      table, .qa-box, .timeline-grid { page-break-inside: avoid; break-inside: avoid; }
+      .page-break { page-break-before: always !important; break-before: page !important; }
+      @page {
+        margin: 15mm 18mm;
+        size: A4 portrait;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    
+    <div class="toolbar-wrapper">
+      <div class="toolbar">
+        <nav class="nav-tools" aria-label="生成器切換">
+          <a href="index.html" class="nav-link" title="海報生成器 (A4/A3/B2/社群)">🎨 海報生成器</a>
+          <a href="cards.html" class="nav-link" title="攤位大字卡 (A4對半/A5)">🏷️ 攤位大字卡</a>
+          <a href="flyer.html" class="nav-link" title="招新宣傳傳單 (A5/雙拼)">📄 宣傳傳單</a>
+          <a href="贊助合作提案企劃書.html" class="nav-link active" title="品牌贊助合作企劃書 (PDF)">💼 贊助企劃書</a>
+        </nav>
+        <button class="btn btn-pdf" onclick="window.print()">🖨️ 列印 / 匯出 PDF</button>
+      </div>
+      <div class="print-tip">
+        <span>💡</span>
+        <span><strong>列印/轉存 PDF 小技巧：</strong>在列印設定視窗中，請將<strong>「頁首與頁尾（Headers & Footers）」取消勾選</strong>，即可去除最上方的檔案路徑（file:///...）與列印時間，文件呈現最乾淨俐落！</span>
+      </div>
+    </div>
+
+    <!-- PAGE 1: 標題與受眾 -->
+    <header class="doc-header">
+      <span class="badge">CAMPUS BD & SPONSORSHIP PROPOSAL</span>
+      <h1>【品牌校園行銷與精準受眾觸及】合作提案企劃書</h1>
+      <div class="subtitle">國立臺北科技大學 健身健美社（NTUT BBFC）年度對外招商文件</div>
+      
+      <div class="meta-box">
+        <div class="meta-item"><strong>主辦單位：</strong>國立臺北科技大學 健身健美社</div>
+        <div class="meta-item"><strong>文件版本：</strong>2026-Q4 / 2027 專案版</div>
+        <div class="meta-item"><strong>官方 IG：</strong>@NTUT_BBFC</div>
+        <div class="meta-item"><strong>商務聯繫：</strong>公關長 / 合作統籌組</div>
+      </div>
+    </header>
+
+    <section>
+      <h2>1. 提案主旨與合作亮點</h2>
+      <h3>1.1 提案主旨</h3>
+      <p>國立臺北科技大學（北科大）健身健美社長期深耕校園運動文化與健力體態領域。本提案旨在協助運動補給、健身器材與健康餐飲品牌，<strong>零距離切入大台北核心都會區「高黏著度、高消費力之年輕重訓族群」</strong>，藉由「社群數位擴散」結合「實體社課體驗情境」，達成高轉換、深認同的雙向商業價值。</p>
+
+      <h3>1.2 核心受眾畫像（Target Audience）</h3>
+      <ul>
+        <li><strong>人口統計特徵：</strong>18–26 歲之大專生、碩博士生，男性佔 68%、女性佔 32%。</li>
+        <li><strong>消費行為特徵：</strong>每週規律重訓 3–5 次，高度注重優質蛋白質攝取、日常體態管理，對乳清蛋白、肌酸、電解質補給、運動服飾與防護護具有極高的日常剛性需求與高回購率。</li>
+        <li><strong>地理位置優勢：</strong>北科大座落於台北市中心忠孝東路商圈，社團影響力兼具校園自體擴散與大台北都會青年健身圈聲量。</li>
+      </ul>
+
+      <h3>1.3 品牌合作三大亮點（ROI 綜效）</h3>
+      <ol>
+        <li><strong>100% 精準受眾零雜訊觸及（Precision Targeting）：</strong><br>摒棄泛大專社團的無效曝光，社群追蹤者與社課學員皆為「規律健身者」，每一份試吃品、每一次曝光皆直接打入潛在終端消費者手中。</li>
+        <li><strong>高信任度體驗式口碑行銷（Experiential Advocacy）：</strong><br>透過具備健美與健力比賽經驗之幹部群帶練，結合「現場試飲/試用 ➔ 幹部背書 ➔ 學員同儕口碑擴散」，有效縮短消費者考慮期。</li>
+        <li><strong>數據驅動與透明結案機制（Data-driven Reporting）：</strong><br>所有合作專案均提供結案分析報告，包含 IG 曝光觸及數、互動率、點擊數及現場學員即時回饋摘要，確保品牌行銷效益具體可量化。</li>
+      </ol>
+    </section>
+
+    <!-- PAGE 2: 方案層級表 -->
+    <section>
+      <h2>2. 贊助合作方案層級表（Sponsorship Tiers）</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 16%;">權益類別</th>
+            <th style="width: 28%;">方案 A：輕量體驗型（體驗/抽獎）</th>
+            <th style="width: 28%;">方案 B：核心深耕型（社課補給夥伴）</th>
+            <th style="width: 28%;">方案 C：旗艦領航型（專案冠名/社博展位）</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>適用對象</strong></td>
+            <td>新品上市試水溫、線上知名度拉升</td>
+            <td>建立常態校園口碑、實體高頻體驗</td>
+            <td>全面主打校園心智、深綁定社團年度主力活動</td>
+          </tr>
+          <tr>
+            <td><strong>贊助形式</strong></td>
+            <td>產品實物贊助（約 20–30 份樣品/抽獎禮）</td>
+            <td>實體社課物資贊助（約 50–100 份以上）</td>
+            <td>活動專案贊助金 ＋ 產品贊助支援</td>
+          </tr>
+          <tr>
+            <td><strong>實體線下權益</strong></td>
+            <td>抽獎得獎者於社辦/攤位領取</td>
+            <td><strong>實體社課現場試飲/產品陳列展示</strong><br>・活動主持人於破冰/帶練環節口頭銘謝<br>・學員合影時手持產品留影</td>
+            <td><strong>實體活動主舞台/攤位官方冠名</strong><br>・現場設立品牌專屬體驗展示桌<br>・海報/活動大型文宣 Logo 優先露出</td>
+          </tr>
+          <tr>
+            <td><strong>線上社群權益</strong></td>
+            <td>・專屬 IG 限時動態標註 1 次<br>・抽獎活動貼文（文末置入品牌介紹與社群連結）</td>
+            <td>・<strong>專屬 IG 雙方聯名貼文（Reels/圖文）1 則</strong><br>・精選動態保留至少 6 個月<br>・官方社員 LINE 群組精準推播</td>
+            <td>・<strong>專案主視覺全面冠名（包含實體印刷海報與傳單）</strong><br>・專屬 Reels 短影音實測/開箱推薦 1 則<br>・IG 限時動態 3 次波段式曝光</td>
+          </tr>
+          <tr>
+            <td><strong>回饋與轉單</strong></td>
+            <td>公開抽獎數據與留言互動截圖</td>
+            <td>結案報告（含現場學員反饋調查 3–5 則）</td>
+            <td>提供品牌專屬折扣碼追蹤轉換成效 ＋ 完整結案分析報告</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- PAGE 3: 執行排程與條款保障 -->
+    <section>
+      <h2>3. 合作執行甘特排程（Project Timeline）</h2>
+      
+      <!-- 重新改用 4 欄結構化卡片排版，徹底解決文字黏在一起問題 -->
+      <div class="timeline-grid">
+        <div class="timeline-step">
+          <div class="timeline-step-tag">W-2 準備期</div>
+          <div class="timeline-step-name">簽約與需求定案</div>
+          <ul class="timeline-step-ul">
+            <li>雙方方案對焦確認</li>
+            <li>簽訂正式合作協議</li>
+            <li>品牌 Logo 與素材交付</li>
+          </ul>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-step-tag">W-1 預熱期</div>
+          <div class="timeline-step-name">物資入庫與初審</div>
+          <ul class="timeline-step-ul">
+            <li>贊助樣品點交驗收</li>
+            <li>宣傳文案與圖稿送審</li>
+            <li>社群預告動態排程上線</li>
+          </ul>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-step-tag">W 執行週</div>
+          <div class="timeline-step-name">現場落地與宣傳</div>
+          <ul class="timeline-step-ul">
+            <li>實體社課/攤位活動執行</li>
+            <li>現場試飲與體驗引導</li>
+            <li>幹部口播宣傳與合影記錄</li>
+          </ul>
+        </div>
+        <div class="timeline-step">
+          <div class="timeline-step-tag">W+1 結案期</div>
+          <div class="timeline-step-name">數據分析與結案</div>
+          <ul class="timeline-step-ul">
+            <li>社群曝光互動數據統計</li>
+            <li>活動現場高解析照片整理</li>
+            <li>交付專案結案效益報告</li>
+          </ul>
+        </div>
+      </div>
+
+      <ul>
+        <li><strong>W-2（簽約與需求定案）：</strong>雙方確認合作規格、確認提供之物資與商標素材規範。</li>
+        <li><strong>W-1（物資驗收入庫與文案初審）：</strong>物資寄達指定地址；社群發布之文字、視覺圖檔送品牌方窗口審核確認。</li>
+        <li><strong>W（正式落地宣傳）：</strong>社群排程發布、社課現場實際派發體驗、活動主持人現場口播與學員合照記錄。</li>
+        <li><strong>W+1（數據回報與成效結案）：</strong>於活動結束後 7 個工作天內，提供正式 PDF 結案報告（包含社群觸及、互動、留存照片與學員反饋）。</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>4. 合作條款與權益保障</h2>
+      <ol>
+        <li><strong>品質與法規遵循：</strong>品牌方所提供之贊助食品、營養補給品或運動護具，應符合中華民國衛福部食藥署相關食品衛生安全標準或商品檢驗規範，並具備完整外包裝與效期標示。</li>
+        <li><strong>商標使用授權界線：</strong>雙方僅限於本合作企劃書核定之專案宣傳範疇內使用對方之名稱、Logo 與識別視覺，未經書面同意，不得作為其他商業廣告之背書用途。</li>
+        <li><strong>內容審核機制：</strong>社團方所產出之線上專案貼文、短影音及實體印刷品，均於發布前 3 個工作天提交品牌方窗口審閱，確保品牌形象傳達精準無偏誤。</li>
+        <li><strong>不可抗力條款：</strong>如遇天災、校方突發防疫政策或不可歸責於雙方之事故導致實體活動延期或取消，雙方應誠信協商等值之數位社群曝光或順延檔期作為替代方案。</li>
+      </ol>
+    </section>
+
+    <!-- PAGE 4: 附錄 A/B 決策題（手動加入分頁斷點，確保完整獨立從新頁頂端開始） -->
+    <section class="page-break">
+      <h2>5. 附錄：給合作夥伴的 3 組「A/B 決策對焦問題」</h2>
+      <div class="qa-box">
+        <div class="qa-intro">敬致 品牌夥伴：為了降低雙方的溝通時間成本，您可直接審視以下三題，直接以簡訊或 Email 回覆選項字母（例：1-B, 2-A, 3-A），我們將於 24 小時內為您擬定相應之執行細節與合約草案：</div>
+
+        <div class="qa-item">
+          <div class="qa-title">Q1. 【贊助形式與資源偏好】</div>
+          <div class="qa-opt"><strong>[A] 實體產品體驗（物資贊助）：</strong>以品牌主力產品（高蛋白點心/能量飲/搖搖杯/周邊）作為社課體驗、攤位互動及社群抽獎贈品。</div>
+          <div class="qa-opt"><strong>[B] 專案經費贊助（現金贊助 / 旗艦深度冠名）：</strong>挹注年度迎新與茶會活動經費，換取海報/傳單全版面主標題冠名及獨立攤位專屬陳列。</div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-title">Q2. 【宣傳主戰場與曝光形式】</div>
+          <div class="qa-opt"><strong>[A] 線上社群轉化主導（Digital-First）：</strong>著重 IG 聯名貼文、抽獎互動擴散、短影音開箱及品牌專屬折扣碼分潤轉單。</div>
+          <div class="qa-opt"><strong>[B] 線下實體情境體驗（Offline-First）：</strong>著重社課實體派樣試飲、重訓器材現場實測，以及幹部學長姐口頭推薦與合照背書。</div>
+        </div>
+
+        <div class="qa-item">
+          <div class="qa-title">Q3. 【預計上線與執行檔期】</div>
+          <div class="qa-opt"><strong>[A] 即刻啟動（9 月末至 10 月初・迎新茶會暨社博檔期）：</strong>鎖定新生甫入學、尋找運動社團的最高注目黃金期。</div>
+          <div class="qa-opt"><strong>[B] 期中深耕（10 月中旬至 11 月・常態例行社課專題）：</strong>結合特定主題社課（如：硬舉深蹲專題、增肌減脂營養學研討）進行深度體驗推廣。</div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+</body>
+</html>

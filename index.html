@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
@@ -13,16 +13,23 @@
 
   <!-- 頂部導航列 -->
   <header class="app-header">
-    <div class="brand-title">
-      <span>🏋️‍♂️ 北科健美健身社・海報生成器</span>
-      <span class="brand-badge">支援 A4 / A3 / B2 & 社群比例・300 DPI 印刷級下載</span>
+    <div class="header-left-wrap">
+      <div class="brand-title">
+        <span>🏋️‍♂️ 北科健美健身社</span>
+      </div>
+      <nav class="nav-tools" aria-label="生成器切換">
+        <a href="index.html" class="nav-link active" title="海報生成器 (A4/A3/B2/社群)">🎨 海報生成器</a>
+        <a href="cards.html" class="nav-link" title="攤位大字卡 (A4對半/A5)">🏷️ 攤位大字卡</a>
+        <a href="flyer.html" class="nav-link" title="招新宣傳傳單 (A5/雙拼)">📄 宣傳傳單</a>
+        <a href="贊助合作提案企劃書.html" class="nav-link" title="品牌贊助合作企劃書 (PDF)">💼 贊助企劃書</a>
+      </nav>
     </div>
     <div class="header-actions">
-      <a href="cards.html" class="btn btn-secondary btn-sm" style="text-decoration:none;">🏷️ 攤位大字卡列印</a>`n      <a href="flyer.html" class="btn btn-secondary btn-sm" style="text-decoration:none;">📄 宣傳傳單 (A5)</a>`n      <button class="btn btn-secondary btn-sm" id="btn-reset" title="恢復預設內容">
-        🔄 重設預設
+      <button class="btn btn-secondary btn-sm" id="btn-reset" title="恢復預設內容">
+        🔄 重設
       </button>
       <button class="btn btn-export" id="btn-export">
-        📥 一鍵下載高畫質海報 (PNG)
+        📥 一鍵下載海報 (PNG)
       </button>
     </div>
   </header>
